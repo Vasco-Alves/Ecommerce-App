@@ -1,0 +1,65 @@
+// Petición GET de todos los comercios.
+GET http://localhost:3000/api/comercio HTTP/1.1
+
+###
+
+// Petición GET de todos un comercio por su CIF.
+GET http://localhost:3000/api/comercio/B00116546 HTTP/1.1
+
+###
+
+// Petición GET de comercio por su CIF.
+POST http://localhost:3000/api/comercio HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Example Comercio",
+  "cif": "ABC123",
+  "direccion": "123 Example St",
+  "email": "example@example.com",
+  "telefonoContacto": "123456789",
+  "idPagina": 1,
+  "description": "Very good food.",
+  "reviews": ["Very good", "Tasty!"]
+}
+
+###
+
+// Creación de un comercio.
+POST http://localhost:3000/api/comercio HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Coffe",
+  "cif": "B00116546",
+  "direccion": "123 Example St",
+  "email": "example@example.com",
+  "telefonoContacto": "123456789",
+  "idPagina": 1,
+  "description": "Very good food.",
+  "reviews": ["Very good", "Tasty!"]
+}
+
+###
+
+// Modificación de un comercio pos su CIF.
+PUT http://localhost:3000/api/comercio/B00116546 HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "Coffes Delight",
+  "cif": "B00116546",
+  "direccion": "Calle Antonio Machado",
+  "email": "example@example.com",
+  "telefonoContacto": "123456789",
+  "idPagina": 1,
+  "description": "Very good food.",
+  "reviews": ["Very nice", "Tasty!"]
+}
+
+###
+
+// Eliminación de un comercio por su CIF. Tipo es un parámetro query (fisico o logico).
+DELETE http://localhost:3000/api/comercio/B00116546?tipo=fisico
+
+###

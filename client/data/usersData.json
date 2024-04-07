@@ -1,0 +1,158 @@
+[
+    {
+        "type": "admin",
+        "username": "admin",
+        "email": "admin",
+        "password": "admin"
+    },
+    {
+        "type": "user",
+        "username": "jack123",
+        "email": "jack@example.com",
+        "password": "345",
+        "age": 35,
+        "gender": "male",
+        "city": "Valencia",
+        "interests": [
+            "food"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "john",
+        "email": "john123@example.com",
+        "password": "j0hn",
+        "age": 46,
+        "gender": "female",
+        "city": "Madrid",
+        "interests": [
+            "food",
+            "fashion",
+            "technology",
+            "gaming"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "emily85",
+        "email": "emily@example.com",
+        "password": "emilyPass",
+        "age": 28,
+        "gender": "female",
+        "city": "Barcelona",
+        "interests": [
+            "travel",
+            "photography",
+            "music"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "alex1990",
+        "email": "alex@example.com",
+        "password": "alexPass123",
+        "age": 32,
+        "gender": "male",
+        "city": "Seville",
+        "interests": [
+            "sports",
+            "technology",
+            "movies"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "lily77",
+        "email": "lily@example.com",
+        "password": "lily@pass",
+        "age": 25,
+        "gender": "female",
+        "city": "Barcelona",
+        "interests": [
+            "fashion",
+            "reading",
+            "art"
+        ],
+        "enableOffers": false
+    },
+    {
+        "type": "user",
+        "username": "mike1985",
+        "email": "mike@example.com",
+        "password": "m1k3!Pass",
+        "age": 37,
+        "gender": "male",
+        "city": "Valencia",
+        "interests": [
+            "fitness",
+            "cooking",
+            "travel"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "carlos1987",
+        "email": "carlos@example.com",
+        "password": "carlosPass",
+        "age": 30,
+        "gender": "male",
+        "city": "Barcelona",
+        "interests": [
+            "travel",
+            "photography",
+            "music",
+            "vehicles"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "ana1995",
+        "email": "ana@example.com",
+        "password": "anaPass123",
+        "age": 27,
+        "gender": "female",
+        "city": "Seville",
+        "interests": [
+            "sports",
+            "technology",
+            "movies"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "luisa88",
+        "email": "luisa@example.com",
+        "password": "luisa@pass",
+        "age": 33,
+        "gender": "female",
+        "city": "Barcelona",
+        "interests": [
+            "fashion",
+            "reading",
+            "art"
+        ],
+        "enableOffers": true
+    },
+    {
+        "type": "user",
+        "username": "miguel1980",
+        "email": "miguel@example.com",
+        "password": "m1gu3l!Pass",
+        "age": 42,
+        "gender": "male",
+        "city": "Valencia",
+        "interests": [
+            "fitness",
+            "cooking",
+            "travel"
+        ],
+        "enableOffers": true
+    }
+]

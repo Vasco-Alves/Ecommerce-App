@@ -1,0 +1,82 @@
+[
+    {
+        "id": "9becf8b5-9869-4d08-94be-6f06e337015c",
+        "name": "Coffee Delight",
+        "cif": "B23456789",
+        "city": "Madrid",
+        "email": "info@coffeedelight.com",
+        "phone": "+34 91 123 4567",
+        "cover": "coffee_delight.jpg",
+        "description": "Coffee Delight is a cozy and inviting coffee shop where the rich aroma of freshly brewed coffee welcomes you upon entry. With its warm and modern ambiance, Coffee Delight is the perfect haven for coffee enthusiasts and those seeking a delightful break. Offering a curated selection of premium coffee blends, artisanal pastries, and a tranquil atmosphere, this charming coffee destination promises a delightful experience for every sip and moment shared with friends or in quiet contemplation.",
+        "activity": "Food",
+        "images": [],
+        "reviews": [
+            "Cozy ambiance, amazing coffee!",
+            "Perfect spot for coffee lovers.",
+            "Delightful experience every visit."
+        ],
+        "score": 3.3,
+        "upvotes": 2,
+        "downvotes": 1
+    },
+    {
+        "id": "657578e2-919a-4234-9866-3ad6cec70021",
+        "name": "Sweet ",
+        "cif": "B1857354",
+        "city": "Valencia",
+        "email": "info@sweetparadise.com",
+        "phone": "+34 96 444 4444",
+        "cover": "sweet_paradise.jpg",
+        "description": "Welcome to Sweet Paradise, where every visit is a journey into a world of delectable delights! Step into a whimsical wonderland of candies and confections, where vibrant colors and tempting aromas invite you to indulge your sweetest cravings. From classic favorites to artisanal treats, Sweet Paradise is a haven for candy enthusiasts of all ages. Immerse yourself in a sugar-coated haven where every corner holds a new surprise, making your experience at Sweet Paradise a truly enchanting adventure in the realm of sweetness.",
+        "activity": "Food",
+        "images": [],
+        "reviews": [
+            "A sweet lover's dream!",
+            "Whimsical and delicious treats.",
+            "Enchanting adventure in sweetness."
+        ],
+        "score": 0,
+        "upvotes": 0,
+        "downvotes": 0
+    },
+    {
+        "id": "bee0c625-e0e5-440c-935f-f7735784a1ba",
+        "name": "Fashion Trends Boutique",
+        "cif": "B98765432",
+        "city": "Madrid",
+        "email": "info@fashiontrendsboutique.com",
+        "phone": "+34 91 555 7890",
+        "cover": "fashion_trends_boutique.jpg",
+        "description": "Discover the latest in fashion at Fashion Trends Boutique, your go-to destination for the hottest trends and stylish outfits. Our boutique in the heart of Madrid is a haven for fashionistas, offering a curated collection of chic clothing and accessories. From casual wear to elegant evening attire, Fashion Trends Boutique caters to diverse tastes and preferences. Step into our world of fashion excellence, where every garment tells a unique story of style and sophistication.",
+        "activity": "Fashion",
+        "images": [],
+        "reviews": [
+            "Trendsetting fashion destination!",
+            "Unique styles for every occasion.",
+            "Experience the essence of sophistication.",
+            "Mi reseña"
+        ],
+        "score": 3,
+        "upvotes": 3,
+        "downvotes": 2
+    },
+    {
+        "id": "3d0e556c-4b5f-4a2b-aa83-6e3010261b72",
+        "name": "Velocity Motors",
+        "cif": "B4575259742",
+        "city": "Sevilla",
+        "email": "velocity@motors.com",
+        "phone": "+34 91 614 8649",
+        "cover": "velocity_motors.jpg",
+        "description": "Velocity Motors is your premier destination for automotive excellence, where speed meets sophistication. Offering a curated selection of top-quality vehicles, our dealership is committed to providing customers with a seamless and exhilarating car-buying experience. From sleek sedans to powerful SUVs, at Velocity Motors, we redefine your journey on the road with style and performance.",
+        "activity": "vehicles",
+        "images": [],
+        "reviews": [
+            "Very professional place"
+        ],
+        "score": 3.3,
+        "votesNum": 0,
+        "upvotes": 2,
+        "downvotes": 1
+    }
+]
