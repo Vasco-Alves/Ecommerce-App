@@ -10,10 +10,10 @@ const validateResults = require("../utils/handleValidator");
 const validateCreate = [
     check("name").exists().notEmpty(),
     check("cif").exists().notEmpty(),
-    check("direccion").exists().notEmpty(),
+    check("city").exists().notEmpty(),
     check("email").exists().notEmpty().isEmail(),
-    check("telefonoContacto").exists().notEmpty(),
-    check("idPagina").exists().notEmpty().isNumeric(),
+    check("phone").exists().notEmpty(),
+    check("page_id").exists().notEmpty().isNumeric(),
     check("description").exists().notEmpty(),
     check("reviews").isArray(),
     check("reviews.*").isString().notEmpty(),
