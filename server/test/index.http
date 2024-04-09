@@ -13,14 +13,24 @@ POST http://localhost:3000/api/comercio HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Example Comercio",
-  "cif": "ABC123",
-  "direccion": "123 Example St",
-  "email": "example@example.com",
-  "telefonoContacto": "123456789",
-  "idPagina": 1,
-  "description": "Very good food.",
-  "reviews": ["Very good", "Tasty!"]
+  "page_id": "9becf8b5-9869-4d08-94be-6f06e337015c",
+  "name": "Coffee Delight",
+  "cif": "B23456789",
+  "city": "Madrid",
+  "email": "info@coffeedelight.com",
+  "phone": "+34 91 123 4567",
+  "cover": "coffee_delight.jpg",
+  "description": "Coffee Delight is a cozy and inviting coffee shop where the rich aroma of freshly brewed coffee welcomes you upon entry. With its warm and modern ambiance, Coffee Delight is the perfect haven for coffee enthusiasts and those seeking a delightful break. Offering a curated selection of premium coffee blends, artisanal pastries, and a tranquil atmosphere, this charming coffee destination promises a delightful experience for every sip and moment shared with friends or in quiet contemplation.",
+  "activity": "Food",
+  "images": [],
+  "reviews": [
+    "Cozy ambiance, amazing coffee!",
+    "Perfect spot for coffee lovers.",
+    "Delightful experience every visit."
+  ],
+  "score": 0,
+  "upvotes": 0,
+  "downvotes": 0
 }
 
 ###

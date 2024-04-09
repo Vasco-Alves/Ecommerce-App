@@ -8,6 +8,11 @@ const mongoose = require('mongoose');
 
 const CommerceSchema = new mongoose.Schema(
     {
+        // Identificador de la página asociada al comercio
+        page_id: {
+            type: String,
+            required: true
+        },
         // Nombre del comercio
         name: {
             type: String,
@@ -18,8 +23,8 @@ const CommerceSchema = new mongoose.Schema(
             type: String,
             required: true
         },
-        // Dirección del comercio
-        direccion: {
+        // Ciudad del comercio
+        city: {
             type: String,
             required: true
         },
@@ -29,24 +34,42 @@ const CommerceSchema = new mongoose.Schema(
             required: true
         },
         // Número de teléfono de contacto del comercio
-        telefonoContacto: {
+        phone: {
             type: String,
             required: true
         },
-        // Identificador de la página asociada al comercio
-        idPagina: {
-            type: Number,
-            required: true
+        // Foto de fondo
+        cover: {
+            type: String
         },
         // Descripción del comercio
         description: {
             type: String,
             required: true
         },
+        // Actividad del comercio
+        activity: {
+            type: String,
+            required: true
+        },
+        // Imágenes adicionales del comercio
+        images: [{
+            type: String
+        }],
         // Lista de reseñas del comercio (opcional)
         reviews: [{
             type: String
-        }]
+        }],
+        // Puntuación total
+        score: {
+            type: Number
+        },
+        upvotes: {
+            type: Number
+        },
+        downvotes: {
+            type: Number
+        }
     },
     {
         // Opciones adicionales del esquema

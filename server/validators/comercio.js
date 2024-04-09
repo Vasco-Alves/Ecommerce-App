@@ -8,15 +8,22 @@ const validateResults = require("../utils/handleValidator");
 
 // Validador para la creación de un comercio. Todos los campos no deben ser vacios.
 const validateCreate = [
-    check("name").exists().notEmpty(),
-    check("cif").exists().notEmpty(),
-    check("direccion").exists().notEmpty(),
-    check("email").exists().notEmpty().isEmail(),
-    check("telefonoContacto").exists().notEmpty(),
-    check("idPagina").exists().notEmpty().isNumeric(),
-    check("description").exists().notEmpty(),
-    check("reviews").isArray(),
-    check("reviews.*").isString().notEmpty(),
+    check('page_id').notEmpty(),
+    check('name').notEmpty(),
+    check('cif').notEmpty(),
+    check('city').notEmpty(),
+    check('email').isEmail(),
+    check('phone').notEmpty(),
+    check('cover').optional().notEmpty(), //.isURL()
+    check('description').notEmpty(),
+    check('activity').notEmpty(),
+    check('images').optional().isArray(),
+    check('images.*').optional().isURL(),
+    check('reviews').optional().isArray(),
+    check('reviews.*').optional().isString(),
+    check('score').optional().isNumeric(),
+    check('upvotes').optional().isNumeric(),
+    check('downvotes').optional().isNumeric(),
     (req, res, next) => {
         return validateResults(req, res, next);
     }
