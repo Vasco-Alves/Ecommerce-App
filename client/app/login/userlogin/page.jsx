@@ -49,9 +49,9 @@ const UserLoginPage = () => {
   }
 
   return (
-    <div className="absolute min-h-screen min-w-full flex flex-col justify-center items-center bg-gradient-to-br from-gray-800 to-blue-300">
+    <div className="absolute min-h-screen min-w-full flex flex-col justify-center items-center bg-gradient-to-br from-blue-400 to-slate-800">
       <div className="text-5xl font-bold mb-9  text-white">Log In</div>
-      <div className="bg-white bg-opacity-20 p-10 rounded-lg w-96 shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]">
+      <div className="bg-white bg-opacity-60 p-10 rounded-lg w-96 shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]">
         <div className="mb-6">
           <label className="text-lg">Email</label>
           <input
@@ -75,12 +75,12 @@ const UserLoginPage = () => {
         <div className="flex flex-row gap-3">
           <button
             onClick={() => router.push('/')}
-            className="w-full bg-opacity-50 hover:bg-stone-700 hover:bg-opacity-50 bg-stone-200 text-white p-3 rounded">
+            className="w-full bg-opacity-50 hover:bg-stone-800 hover:bg-opacity-50 bg-stone-600 text-white p-3 rounded">
             Cancel
           </button>
           <button type="button"
             onClick={handleLogin}
-            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-sky-700">
+            className="w-full bg-blue-500 text-white p-3 rounded hover:bg-blue-700">
             Log In
           </button>
         </div>
