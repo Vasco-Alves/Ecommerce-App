@@ -64,7 +64,12 @@ const RegisterPage = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(formData)
             });
-            router.push(`/user/${formData.username}`);
+
+            const data = await response.json();
+
+            // TODO continuar desde aqui
+
+            // router.push(`/user/${formData.username}`);
 
         } catch (error) {
             console.error('Error al registrarse', error);
