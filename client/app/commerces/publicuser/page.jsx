@@ -7,17 +7,17 @@ import { useSearchParams } from 'next/navigation';
 const CommercePage = () => {
     const searchParams = useSearchParams();
 
-    const businessId = searchParams.get('id');
+    const businessCIF = searchParams.get('cif');
     const [commerce, setCommerce] = useState('');
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/commerces');
+                const response = await fetch(`http://localhost:3000/api/comercio/${businessCIF}`);
                 const data = await response.json();
 
-                setCommerce(data.commerces.find(c => c.id === businessId));
+                setCommerce(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching commerce data:', error);
@@ -25,7 +25,7 @@ const CommercePage = () => {
         }
 
         fetchData();
-    }, [businessId]);
+    }, [businessCIF]);
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center p-0 bg-center bg-cover"

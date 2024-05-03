@@ -10,7 +10,6 @@ const Home = () => {
 
     const [cityFilter, setFilter] = useState('');
     const [activityFilter, setActivityFilter] = useState('');
-
     const [commerceList, setCommerceList] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -18,10 +17,11 @@ const Home = () => {
         // petición GET de comercios
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/commerces');
+                // const response = await fetch('/api/commerces');
+                const response = await fetch('http://localhost:3000/api/comercio');
                 const data = await response.json();
 
-                setCommerceList(data.commerces);
+                setCommerceList(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching commerce data:', error);
@@ -30,7 +30,6 @@ const Home = () => {
 
         fetchData();
     }, []);
-
 
     return (
         <div className="absolute min-h-screen min-w-full bg-gradient-to-br from-gray-800 to-cyan-700">
@@ -74,7 +73,7 @@ const Home = () => {
                         ).map((c, index) => (
                             <li key={index} className="flex flex-col lg:flex-row gap-2">
                                 {/* Image */}
-                                <Link href={{ pathname: '/commerces/publicuser', query: { id: c.id } }}
+                                <Link href={{ pathname: '/commerces/publicuser', query: { cif: c.cif } }}
                                     className="h-64 xl:h-auto w-full bg-black bg-cover bg-center rounded shadow-[rgba(0,_0,_0,_0.5)_0px_0px_15px] hover:opacity-50"
                                     style={{ backgroundImage: `url(/${c.cover})` }}>
                                 </Link>

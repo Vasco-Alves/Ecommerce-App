@@ -15,9 +15,10 @@
             "Perfect spot for coffee lovers.",
             "Delightful experience every visit."
         ],
-        "score": 3.3,
-        "upvotes": 2,
-        "downvotes": 1
+        "score": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "votesNum": 0
     },
     {
         "id": "657578e2-919a-4234-9866-3ad6cec70021",
@@ -37,7 +38,8 @@
         ],
         "score": 0,
         "upvotes": 0,
-        "downvotes": 0
+        "downvotes": 0,
+        "votesNum": 0
     },
     {
         "id": "bee0c625-e0e5-440c-935f-f7735784a1ba",
@@ -56,9 +58,10 @@
             "Experience the essence of sophistication.",
             "Mi reseña"
         ],
-        "score": 3,
-        "upvotes": 3,
-        "downvotes": 2
+        "score": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "votesNum": 0
     },
     {
         "id": "3d0e556c-4b5f-4a2b-aa83-6e3010261b72",
@@ -74,9 +77,9 @@
         "reviews": [
             "Very professional place"
         ],
-        "score": 3.3,
-        "votesNum": 0,
-        "upvotes": 2,
-        "downvotes": 1
+        "score": 0,
+        "upvotes": 0,
+        "downvotes": 0,
+        "votesNum": 0
     }
 ]

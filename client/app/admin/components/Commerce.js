@@ -15,7 +15,7 @@ const Commerce = ({ id, name, cif, city, email, phone, coverImg, isModalOpen, de
             {/* Info */}
             <div className="h-auto flex flex-col justify-between bg-white w-full p-7 rounded-r-lg
             shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
-                <div className="flex flex-col gap-3 md:flex-row justify-between mb-7">
+                <div className="flex flex-col gap-3 md:flex-row justify-between mb-7 items-center">
                     <h1 className="font-bold text-3xl">{name}</h1>
                     <p className="text-xs text-gray-400">id: {id}</p>
                 </div>

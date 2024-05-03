@@ -24,7 +24,7 @@
         "email": "john123@example.com",
         "password": "j0hn",
         "age": 46,
-        "gender": "female",
+        "gender": "male",
         "city": "Madrid",
         "interests": [
             "food",

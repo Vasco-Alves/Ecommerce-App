@@ -10,30 +10,30 @@ const UserLoginPage = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const Push = (data) => {
-    if (data.status !== 200) {
-      alert('Email or password incorrect.');
-      return;
-    }
+  // const Push = (data) => {
+  //   if (data.status !== 200) {
+  //     alert('Email or password incorrect.');
+  //     return;
+  //   }
 
-    const username = data.user.username;
+  //   const username = data.user.username;
 
-    // Conforme el tipo de utilizador, envía a una página web distinta
-    switch (data.user.type) {
-      case 'admin':
-        router.push('/admin');
-        break;
+  //   // Conforme el tipo de utilizador, envía a una página web distinta
+  //   switch (data.user.type) {
+  //     case 'admin':
+  //       router.push('/admin');
+  //       break;
 
-      case 'user':
-        router.push(`/user/${username}`);
-        break;
+  //     case 'user':
+  //       router.push(`/user/${username}`);
+  //       break;
 
-      default:
-        break;
-    }
-  }
+  //     default:
+  //       break;
+  //   }
+  // }
 
-  const handleLogin = () => {
+  const handleLogin = async () => {
     if (!email || !password) {
       alert('Please fill all inputs.');
       return;
@@ -41,11 +41,41 @@ const UserLoginPage = () => {
 
     const user = { email: email, password: password }
 
-    fetch('/api/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(user)
-    }).then(res => res.json()).then(data => Push(data));
+    try {
+      // Petición POST al backend
+      const response = await fetch('http://localhost:3000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', },
+        body: JSON.stringify(user)
+      });
+
+      const data = response.json();
+
+      localStorage.setItem('token', data.token);
+
+      // Redirecciona a la pagina principal
+      switch (data.type) {
+        case 'admin':
+          router.push('/admin');
+          break;
+
+        case 'user':
+          router.push(`/user/${data.username}`);
+          break;
+
+        default:
+          break;
+      }
+
+    } catch (error) {
+      console.error("Datos incorrectos");
+    }
+
+    // fetch('/api/login', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(user)
+    // }).then(res => res.json()).then(data => Push(data));
   }
 
   return (

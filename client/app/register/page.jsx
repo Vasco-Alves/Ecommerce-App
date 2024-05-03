@@ -51,17 +51,30 @@ const RegisterPage = () => {
             setFormData({ ...formData, [name]: value });
     }
 
-    const handleRegister = () => {
+    const handleRegister = async () => {
         if (!formData.city || !formData.age) {
             alert("Please fill all inputs.");
             return;
         }
 
-        fetch('api/register', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        }).then((res) => res.json()).then(() => router.push(`/user/${formData.username}`));
+        try {
+            // Petición POST al backend
+            const response = await fetch('http://localhost:3000/api/auth/register', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(formData)
+            });
+            router.push(`/user/${formData.username}`);
+
+        } catch (error) {
+            console.error('Error al registrarse', error);
+        }
+
+        // fetch('api/register', {
+        //     method: 'POST',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(formData)
+        // }).then((res) => res.json()).then(() => router.push(`/user/${formData.username}`));
     }
 
 

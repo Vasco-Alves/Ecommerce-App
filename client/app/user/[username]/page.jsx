@@ -104,14 +104,14 @@ const UserHome = ({ params }) => {
                 </div>
             </nav>
 
-            {!loading && <div className="flex justify-center mt-20 p-8" >
-                <div className="h-[calc(100vh-145px)] overflow-y-scroll w-full p-4 bg-slate-100 bg-opacity-80 rounded shadow-[rgba(0,_0,_0,_0.5)_0px_0px_10px]">
-                    <ul className="grid grid-cols-1 2xl:grid-cols-2 gap-8">
+            {!loading && <div className="flex justify-center mt-20 px-3" >
+                <div className="h-[calc(100vh-95px)] overflow-y-scroll w-full p-4 bg-slate-100 bg-opacity-80 rounded shadow-[rgba(0,_0,_0,_0.5)_0px_0px_10px]">
+                    <ul className="grid grid-cols-1 2xl:grid-cols-2 gap-10">
                         {commerceList.filter((c) =>
                             c.city.toLowerCase().includes(cityFilter) &&
                             c.activity.toLowerCase().includes(activityFilter)
-                        ).map((c) => (
-                            <li key={c.id} className="flex flex-col xl:flex-row gap-2">
+                        ).map((c, index) => (
+                            <li key={index} className="flex flex-col lg:flex-row gap-2">
                                 {/* Image */}
                                 <Link href={{ pathname: '/commerces/registereduser', query: { id: c.id, user: username } }}
                                     className="h-64 xl:h-full w-full bg-black bg-cover bg-center rounded shadow-[rgba(0,_0,_0,_0.5)_0px_0px_15px] hover:opacity-50"
@@ -119,20 +119,13 @@ const UserHome = ({ params }) => {
                                 </Link>
 
                                 {/* Info */}
-                                <div className="flex flex-col sm:flex-row xl:flex-col xl:items-start sm:items-center py-4 px-10 xl:p-8 xl:w-2/3 gap-7 xl:gap-5 bg-white w-full rounded
-                                     shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
-                                    <div className="flex flex-col md:flex-row gap-3">
-                                        <h1 className="font-bold text-3xl xl:text-4xl">{c.name}</h1>
-                                        <div>
+                                <div className="lg:w-96 p-4 lg:py-20 bg-white rounded shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
+                                    <div className="flex flex-col sm:flex-row lg:flex-col sm:items-center justify-between gap-4 w-full h-full">
+                                        <h1 className="font-bold text-center text-3xl xl:text-4xl">{c.name}</h1>
+                                        <div className="flex gap-6">
                                             <h3><span className="font-bold">Activity: </span>{c.activity}</h3>
                                             <h3><span className="font-bold">Score: </span>{c.score}</h3>
                                         </div>
-                                    </div>
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-2 xl:grid-cols-1 w-full border-l-2 border-l-gray-700 pl-4">
-                                        <h2 className="text-sm xl:text-lg"><span className="font-bold">CIF: </span>{c.cif}</h2>
-                                        <h2 className="text-sm xl:text-lg"><span className="font-bold">Phone: </span>{c.phone}</h2>
-                                        <h2 className="text-sm xl:text-lg"><span className="font-bold">Email: </span>{c.email}</h2>
-                                        <h2 className="text-sm xl:text-lg"><span className="font-bold">City: </span>{c.city}</h2>
                                     </div>
                                 </div>
                             </li>

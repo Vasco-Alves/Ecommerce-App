@@ -40,14 +40,25 @@ POST http://localhost:3000/api/comercio HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "Coffe",
-  "cif": "B00116546",
-  "direccion": "123 Example St",
-  "email": "example@example.com",
-  "telefonoContacto": "123456789",
-  "idPagina": 1,
-  "description": "Very good food.",
-  "reviews": ["Very good", "Tasty!"]
+  "page_id": "657578e2-919a-4234-9866-3ad6cec70021",
+  "name": "Sweet Delight",
+  "cif": "B1857354",
+  "city": "Valencia",
+  "email": "info@sweetparadise.com",
+  "phone": "+34 96 444 4444",
+  "cover": "sweet_paradise.jpg",
+  "description": "Welcome to Sweet Paradise, where every visit is a journey into a world of delectable delights! Step into a whimsical wonderland of candies and confections, where vibrant colors and tempting aromas invite you to indulge your sweetest cravings. From classic favorites to artisanal treats, Sweet Paradise is a haven for candy enthusiasts of all ages. Immerse yourself in a sugar-coated haven where every corner holds a new surprise, making your experience at Sweet Paradise a truly enchanting adventure in the realm of sweetness.",
+  "activity": "Food",
+  "images": [],
+  "reviews": [
+    "A sweet lover's dream!",
+    "Whimsical and delicious treats.",
+    "Enchanting adventure in sweetness."
+  ],
+  "score": 0,
+  "upvotes": 0,
+  "downvotes": 0,
+  "votesNum": 0
 }
 
 ###
