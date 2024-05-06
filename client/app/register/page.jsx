@@ -67,19 +67,12 @@ const RegisterPage = () => {
 
             const data = await response.json();
 
-            // TODO continuar desde aqui
-
-            // router.push(`/user/${formData.username}`);
+            localStorage.setItem('token', data.token);
+            router.push(`/user/${data.user}`);
 
         } catch (error) {
             console.error('Error al registrarse', error);
         }
-
-        // fetch('api/register', {
-        //     method: 'POST',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(formData)
-        // }).then((res) => res.json()).then(() => router.push(`/user/${formData.username}`));
     }
 
 

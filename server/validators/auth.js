@@ -11,7 +11,7 @@ const validateRegister = [
     check('type').notEmpty(),
     check('username').notEmpty(),
     check('email').isEmail(),
-    check('password').notEmpty(),
+    check('password').notEmpty(), // .isLength( {min:8, max: 16} ),
     check('age').optional().isInt(),
     check('gender').optional(),
     check('city').notEmpty(),
@@ -22,4 +22,12 @@ const validateRegister = [
     }
 ];
 
-module.exports = { validateRegister };
+const validateLogin = [
+    check('email').notEmpty().isEmail(),
+    check('password').notEmpty(), // .isLength( {min:8, max: 16} ),
+    (req, res, next) => {
+        return validateResults(req, res, next);
+    }
+];
+
+module.exports = { validateRegister, validateLogin };

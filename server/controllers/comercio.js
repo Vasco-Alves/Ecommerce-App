@@ -24,8 +24,6 @@ const getItemByCIF = async (req, res) => {
     try {
         const cif = req.params.cif;
         const data = await Comercio.findOne({ cif });
-
-        // Si no encuentra el comercio devuelve error.
         if (!data)
             return handleHttpError(res, 'ERROR_COMERCIO_NOT_FOUND');
 

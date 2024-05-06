@@ -9,6 +9,6 @@ const Validator = require("../validators/auth"); // Validador
 
 router.post('/register', Validator.validateRegister, Controller.registerCtrl);
 
-router.post('/login');
+router.post('/login', Validator.validateLogin, Controller.loginCtrl);
 
 module.exports = router;

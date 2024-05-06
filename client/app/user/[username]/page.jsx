@@ -23,56 +23,66 @@ const UserHome = ({ params }) => {
     const closeModal = () => { setModalOpen(false) };
 
     const saveChanges = (updatedUser) => {
-        setUser(updatedUser);
+        // TODO 
 
-        // Petición PUT para actualizar datos del usuario
-        fetch('/api/users', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedUser)
-        }).then(res => res.json()).then(data => console.log(data));
+        // setUser(updatedUser);
+
+        // // Petición PUT para actualizar datos del usuario
+        // fetch('/api/users', {
+        //     method: 'PUT',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify(updatedUser)
+        // }).then(res => res.json()).then(data => console.log(data));
     }
 
     const deleteUser = () => {
-        // Petición DELETE para eliminar usuario
-        fetch('/api/users', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ username })
-        }).then(res => res.json()).then(router.replace('/'));
+        // TODO 
+
+        // // Petición DELETE para eliminar usuario
+        // fetch('/api/users', {
+        //     method: 'DELETE',
+        //     headers: { 'Content-Type': 'application/json' },
+        //     body: JSON.stringify({ username })
+        // }).then(res => res.json()).then(router.replace('/'));
     }
 
-    // Fetch all commerces
     useEffect(() => {
+        // Petición GET de comercios
         const fetchCommerces = async () => {
             try {
-                const response = await fetch('/api/commerces');
+                // const response = await fetch('/api/commerces');
+                const response = await fetch('http://localhost:3000/api/comercio');
                 const data = await response.json();
 
-                setCommerceList(data.commerces);
+                setCommerceList(data);
             } catch (error) {
                 console.error('Error fetching commerce data:', error);
             }
         }
 
-        fetchCommerces();
-    }, []);
-
-    // Fetch user data
-    useEffect(() => {
+        // Petición GET de información del usuario
         const fetchUserData = async () => {
             try {
-                const usersResponse = await fetch('/api/users');
-                const userData = await usersResponse.json();
+                const user = await fetch(`http://localhost:3000/api/users/${username}`);
+                const data = await user.json();
 
-                setUser(userData.users.find(user => user.username == username));
+                setUser(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
         }
+
+        const token = localStorage.getItem('token');
+        if (!token || token === undefined) {
+            alert('Token not found');
+            router.replace('/');
+        }
+
+        fetchCommerces();
         fetchUserData();
-    }, [])
+    }, []);
+
 
     return (
         <div className="absolute min-h-screen min-w-full bg-gradient-to-br from-gray-800 to-cyan-700">
@@ -97,7 +107,7 @@ const UserHome = ({ params }) => {
                     <button onClick={openModal}
                         className="text-lg font-bold">{username.toUpperCase()}</button>
                     <button
-                        onClick={() => router.replace('/')}
+                        onClick={() => { router.replace('/'); localStorage.removeItem('token') }}
                         className="bg-cyan-700 hover:bg-cyan-500 text-white md:text-xl p-2.5 rounded">
                         Log Out
                     </button>
