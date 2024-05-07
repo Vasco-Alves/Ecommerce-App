@@ -5,19 +5,19 @@
 const express = require('express'); // Importar el módulo 'express' para manejar las rutas
 const router = express.Router(); // Crear un enrutador para manejar las rutas
 
-const Controller = require('../controllers/users'); // Controlador
-// const Validator = require("../validators/comercio"); // Validador
+const UserController = require('../controllers/users');
+const UserValidator = require('../validators/users');
+const authenticateToken = require('../middleware/authenticateToken');
 
 /* GET requests */
 
-// Obtiene la lista de usuarios.
-router.get('/', Controller.getItems);
+// Gets all users (requires authentication)
+router.get('/', authenticateToken, UserController.getItems);
 
-// Obtiene un solo usuario usando su nombre de perfil.
-router.get('/:username', Controller.getItemByName);
+// GET user by id (requires authentication)
+router.get('/:id', authenticateToken, UserValidator.validateId, UserController.getItemById);
 
-/* PUT requests */
-
-router.put('/:username', Controller.updateItem);
+// PUT user by id (requires authentication)
+router.put('/:id', authenticateToken, UserController.updateItem);
 
 module.exports = router;

@@ -6,14 +6,13 @@
 const { check } = require("express-validator");
 const validateResults = require("../utils/handleValidator");
 
-// Validador para la creación de un comercio. Todos los campos no deben ser vacios.
-const validateRegister = [
+const register = [
     check('type').notEmpty(),
     check('username').notEmpty(),
     check('email').isEmail(),
-    check('password').notEmpty(), // .isLength( {min:8, max: 16} ),
+    check('password').notEmpty().isLength({ min: 8, max: 16 }),
     check('age').optional().isInt(),
-    check('gender').optional(),
+    check('gender').optional(), // TODO mandatory
     check('city').notEmpty(),
     check('interests').optional().isArray(),
     check('enableOffers').optional().isBoolean(),
@@ -22,7 +21,7 @@ const validateRegister = [
     }
 ];
 
-const validateLogin = [
+const login = [
     check('email').notEmpty().isEmail(),
     check('password').notEmpty(), // .isLength( {min:8, max: 16} ),
     (req, res, next) => {
@@ -30,4 +29,4 @@ const validateLogin = [
     }
 ];
 
-module.exports = { validateRegister, validateLogin };
+module.exports = { register, login };

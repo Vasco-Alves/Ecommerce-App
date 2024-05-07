@@ -6,6 +6,8 @@ import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import EditModal from '../components/EditModal';
 
+const jwt = require('jsonwebtoken');
+
 const UserHome = ({ params }) => {
     const username = params.username;
     const router = useRouter();
@@ -22,54 +24,83 @@ const UserHome = ({ params }) => {
     const openModal = () => { setModalOpen(true) };
     const closeModal = () => { setModalOpen(false) };
 
-    const saveChanges = (updatedUser) => {
-        // TODO 
+    const saveChanges = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
 
-        // setUser(updatedUser);
+            const { _id, ...userData } = user;
 
-        // // Petición PUT para actualizar datos del usuario
-        // fetch('/api/users', {
-        //     method: 'PUT',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify(updatedUser)
-        // }).then(res => res.json()).then(data => console.log(data));
+            console.log(userData);
+
+            const response = await fetch(`http://localhost:3000/api/users/${user._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(userData)
+            });
+
+            if (!response.ok)
+                throw new Error('Error updating user.');
+
+            alert('Data updated succesfully.');
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
-    const deleteUser = () => {
-        // TODO 
+    const deleteUser = async () => {
+        // TODO continuar desde aqui
+        try {
+            const response = await fetch(`http://localhost:3000/api/users/${user._id}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` }
+            });
 
-        // // Petición DELETE para eliminar usuario
-        // fetch('/api/users', {
-        //     method: 'DELETE',
-        //     headers: { 'Content-Type': 'application/json' },
-        //     body: JSON.stringify({ username })
-        // }).then(res => res.json()).then(router.replace('/'));
+            if (!response.ok)
+                throw new Error('Error updating user.');
+
+            alert('Data updated succesfully.');
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
         // Petición GET de comercios
         const fetchCommerces = async () => {
             try {
-                // const response = await fetch('/api/commerces');
                 const response = await fetch('http://localhost:3000/api/comercio');
-                const data = await response.json();
+                if (!response.ok)
+                    throw new Error('Error fetching data.');
 
+                const data = await response.json();
                 setCommerceList(data);
+
             } catch (error) {
-                console.error('Error fetching commerce data:', error);
+                console.error(error);
             }
         }
 
         // Petición GET de información del usuario
-        const fetchUserData = async () => {
+        const fetchUserData = async (id, token) => {
             try {
-                const user = await fetch(`http://localhost:3000/api/users/${username}`);
-                const data = await user.json();
+                const response = await fetch(`http://localhost:3000/api/users/${id}`, {
+                    headers: { Authorization: `Bearer ${token}` }
+                });
+                if (!response.ok)
+                    throw new Error('Error fetching user data.');
 
+                const data = await response.json();
                 setUser(data);
-                setLoading(false);
+
             } catch (error) {
-                console.error('Error fetching user data:', error);
+                console.error(error);
             }
         }
 
@@ -78,11 +109,12 @@ const UserHome = ({ params }) => {
             alert('Token not found');
             router.replace('/');
         }
+        const decodedToken = jwt.decode(token);
 
         fetchCommerces();
-        fetchUserData();
+        fetchUserData(decodedToken._id, token);
+        setLoading(false);
     }, []);
-
 
     return (
         <div className="absolute min-h-screen min-w-full bg-gradient-to-br from-gray-800 to-cyan-700">

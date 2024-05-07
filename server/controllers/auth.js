@@ -5,16 +5,16 @@ const { handleHttpError } = require('../utils/handleError');
 const { tokenSign } = require("../utils/handleJWT");
 const { encrypt, compare } = require("../utils/handlePassword");
 
-const User = require('../models/user');
+const UsersModel = require('../models/user');
 
 /** Registra un usuario en la base de datos. */
-const registerCtrl = async (req, res) => {
+const register = async (req, res) => {
     try {
         req = matchedData(req);
 
         const password = await encrypt(req.password);
         const body = { ...req, password };
-        const user = await User.create(body);
+        const user = await UsersModel.create(body);
         // dataUser.set('password', undefined, { strict: false }); // Remueve password de la respuesta
 
         const data = {
@@ -23,6 +23,7 @@ const registerCtrl = async (req, res) => {
         };
         res.send(data);
 
+
     } catch (error) {
         console.error(error);
         handleHttpError(res, "ERROR_REGISTER_USER");
@@ -30,11 +31,11 @@ const registerCtrl = async (req, res) => {
 }
 
 /** Realiza el login de un usuario. */
-const loginCtrl = async (req, res) => {
+const login = async (req, res) => {
     try {
         req = matchedData(req);
 
-        const user = await User.findOne({ email: req.email });
+        const user = await UsersModel.findOne({ email: req.email });
         if (!user)
             return handleHttpError(res, 'ERROR_USER_NOT_FOUND');
 
@@ -55,4 +56,4 @@ const loginCtrl = async (req, res) => {
     }
 }
 
-module.exports = { registerCtrl, loginCtrl };
+module.exports = { register, login };

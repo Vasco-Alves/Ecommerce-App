@@ -6,13 +6,12 @@
 const { matchedData } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
 
-// Importamos el modelo de comercio.
-const Comercio = require('../models/comercio');
+const CommerceModel = require('../models/comercio');
 
 /** Obtiene todos los comercios en la base de datos */
 const getItems = async (req, res) => {
     try {
-        const data = await Comercio.find();
+        const data = await CommerceModel.find();
         res.send(data);
     } catch (err) {
         handleHttpError(res, 'ERROR_GET_ITEMS');
@@ -23,7 +22,7 @@ const getItems = async (req, res) => {
 const getItemByCIF = async (req, res) => {
     try {
         const cif = req.params.cif;
-        const data = await Comercio.findOne({ cif });
+        const data = await CommerceModel.findOne({ cif });
         if (!data)
             return handleHttpError(res, 'ERROR_COMERCIO_NOT_FOUND');
 
@@ -37,7 +36,7 @@ const getItemByCIF = async (req, res) => {
 const createItem = async (req, res) => {
     try {
         const body = matchedData(req); // Valida los datos
-        const data = await Comercio.create(body); // Crear un nuevo comercio con los datos proporcionados
+        const data = await CommerceModel.create(body); // Crear un nuevo comercio con los datos proporcionados
         res.send(data);
     } catch (err) {
         handleHttpError(res, 'ERROR_CREATE_ITEMS');
@@ -49,7 +48,7 @@ const updateItem = async (req, res) => {
     try {
         const body = matchedData(req); // Valida los datos
         const cif = req.params.cif; // Obtiene el CIF del comercio desde los parámetros de la solicitud
-        const data = await Comercio.findOneAndUpdate({ cif: cif }, body, { new: true }); // Busca y actualiza el comercio con el CIF proporcionado
+        const data = await CommerceModel.findOneAndUpdate({ cif: cif }, body, { new: true }); // Busca y actualiza el comercio con el CIF proporcionado
 
         // Si no encuentra el comercio devuelve error.
         if (!data)
@@ -79,9 +78,9 @@ const deleteItem = async (req, res) => {
 
         // Realizar la eliminación lógica o física según el tipo especificado
         if (tipo === 'logico')
-            data = await Comercio.deleteOne({ cif: cif });
+            data = await CommerceModel.deleteOne({ cif: cif });
         else if (tipo === 'fisico')
-            data = await Comercio.findOneAndDelete({ cif: cif });
+            data = await CommerceModel.findOneAndDelete({ cif: cif });
 
         res.send(data);
     } catch (err) {

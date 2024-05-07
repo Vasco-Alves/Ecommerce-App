@@ -24,7 +24,7 @@ const EditModal = ({ onClose, onEdit, onDelete, setUser, user }) => {
     }
 
     const saveChanges = () => {
-        onEdit(user);
+        onEdit();
         onClose();
     }
 

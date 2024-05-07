@@ -3,10 +3,9 @@
  * la base de datos para el Comercio.
  */
 
-const { matchedData } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
 
-const User = require('../models/user');
+const UserModel = require('../models/user');
 
 /** Obtiene todos los comercios en la base de datos */
 const getItems = async (req, res) => {
@@ -18,33 +17,45 @@ const getItems = async (req, res) => {
             return userWithoutPassword;
         });
         res.send(modifiedData);
-    } catch (err) {
+
+    } catch (error) {
+        console.error('Error getting users:', error);
         handleHttpError(res, 'ERROR_GET_ITEMS');
     }
 }
 
 /** Obtiene un solo comercio con un CIF específico */
-const getItemByName = async (req, res) => {
+const getItemById = async (req, res) => {
     try {
-        const user = await User.findOne({ username: req.params.username });
+        const id = req.params.id;
+        const user = await UserModel.findById(id);
         if (!user)
             return handleHttpError(res, 'ERROR_USER_NOT_FOUND');
 
         const { password, ...userWithoutPassword } = user.toObject(); // Remueve la contraseña de la respuesta
-
         res.send(userWithoutPassword);
-    } catch (err) {
+
+    } catch (error) {
+        console.error('Error getting user:', error);
         handleHttpError(res, 'ERROR_GET_ITEM_USERNAME');
     }
 }
 
 const updateItem = async (req, res) => {
     try {
+        const userId = req.params.id;
+        const updatedUserData = req.body;
+
+        const updatedUser = await UserModel.findByIdAndUpdate(userId, updatedUserData);
+        if (!updatedUser)
+            return handleHttpError(res, 'ERROR_USER_NOT_FOUND', 404);
+
+        res.send('');
 
     } catch (error) {
-
+        console.error('Error updating user:', error);
+        handleHttpError(res, 'ERROR_UPDATE_USER', 500);
     }
 }
 
-// Exporta los controladores para ser utilizados en otras partes de la aplicación
-module.exports = { getItems, getItemByName, updateItem };
+module.exports = { getItems, getItemById, updateItem };

@@ -65,6 +65,11 @@ const RegisterPage = () => {
                 body: JSON.stringify(formData)
             });
 
+            if (!response.ok) {
+                alert('Datos incorrectamente introducidos.');
+                throw new Error('Datos incorrectamente introducidos.');
+            }
+
             const data = await response.json();
 
             localStorage.setItem('token', data.token);
@@ -72,6 +77,7 @@ const RegisterPage = () => {
 
         } catch (error) {
             console.error('Error al registrarse', error);
+            setStep(1);
         }
     }
 

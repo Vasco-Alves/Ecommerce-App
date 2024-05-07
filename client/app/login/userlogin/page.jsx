@@ -26,11 +26,12 @@ const UserLoginPage = () => {
         body: JSON.stringify(user)
       });
 
-      const data = await response.json();
+      if (!response.ok)
+        throw new Error('Failed to login. Please try again.');
 
+      const data = await response.json();
       localStorage.setItem('token', data.token);
 
-      // Redirecciona a la pagina principal
       switch (data.type) {
         case 'admin':
           router.push('/admin');
@@ -43,9 +44,9 @@ const UserLoginPage = () => {
         default:
           break;
       }
-
     } catch (error) {
-      console.error("Datos incorrectos");
+      console.error('Error:', error.message);
+      alert('Failed to login. Please try again.');
     }
   }
 

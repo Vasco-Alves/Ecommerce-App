@@ -1,14 +1,12 @@
 
-const express = require('express'); // Importar el módulo 'express' para manejar las rutas
-const router = express.Router(); // Crear un enrutador para manejar las rutas
+const express = require('express');
+const router = express.Router();
 
-const Controller = require('../controllers/auth'); // Controlador
-const Validator = require("../validators/auth"); // Validador
+const AuthController = require('../controllers/auth');
+const AuthValidator = require("../validators/auth");
 
-/* POST requests */
+router.post('/register', AuthValidator.register, AuthController.register);
 
-router.post('/register', Validator.validateRegister, Controller.registerCtrl);
-
-router.post('/login', Validator.validateLogin, Controller.loginCtrl);
+router.post('/login', AuthValidator.login, AuthController.login);
 
 module.exports = router;
