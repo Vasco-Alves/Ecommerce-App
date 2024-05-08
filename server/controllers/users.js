@@ -58,4 +58,15 @@ const updateItem = async (req, res) => {
     }
 }
 
-module.exports = { getItems, getItemById, updateItem };
+const deleteItem = async (req, res) => {
+    try {
+        const { id } = matchedData(req)
+        const data = await UserModel.deleteOne({ _id: id });
+        res.send(data)
+    } catch (error) {
+        console.error('Error updating user:', error);
+        handleHttpError(res, 'ERROR_DELETE_USER', 500);
+    }
+}
+
+module.exports = { getItems, getItemById, updateItem, deleteItem };
