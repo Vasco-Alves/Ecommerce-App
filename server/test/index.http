@@ -11,7 +11,6 @@ GET http://localhost:3000/api/comercio/B00116546 HTTP/1.1
 // Creación de un comercio.
 POST http://localhost:3000/api/comercio HTTP/1.1
 Content-Type: application/json
-Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiYzVkMDFlNDVkYzEwNDVkNDhkYjQiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTcxNTI1MDkwMCwiZXhwIjoxNzE1MjU4MTAwfQ.FlOkW4532r8Rtw-Rq9m5dusxRGBGNlhy0ey-p3i_W8g
 
 {
   "name": "Coffee Delight",
@@ -23,7 +22,11 @@ Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiYzVkM
   "description": "Coffee Delight is a cozy and inviting coffee shop where the rich aroma of freshly brewed coffee welcomes you upon entry. With its warm and modern ambiance, Coffee Delight is the perfect haven for coffee enthusiasts and those seeking a delightful break. Offering a curated selection of premium coffee blends, artisanal pastries, and a tranquil atmosphere, this charming coffee destination promises a delightful experience for every sip and moment shared with friends or in quiet contemplation.",
   "activity": "Food",
   "images": [],
-  "reviews": [],
+  "reviews": [
+    "Cozy ambiance, amazing coffee!",
+    "Perfect spot for coffee lovers.",
+    "Delightful experience every visit."
+  ],
   "score": 0,
   "upvotes": 0,
   "downvotes": 0

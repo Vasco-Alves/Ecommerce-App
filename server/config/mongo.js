@@ -8,7 +8,7 @@ const dbConnect = () => {
     try {
         mongoose.connect(db_uri);
     } catch (error) {
-        console.err('Error conectando a la BD:', error);
+        console.error('Error conectando a la BD:', error);
     }
 
     //Listen events

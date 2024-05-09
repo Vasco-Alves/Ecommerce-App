@@ -13,8 +13,6 @@ const CommerceModel = require('../models/comercio');
 const getItems = async (req, res) => {
     try {
         const data = await CommerceModel.find();
-        if (!data)
-            throw new Error('No commerces found.');
         res.send(data);
 
     } catch (error) {
@@ -27,7 +25,7 @@ const getItemByCIF = async (req, res) => {
         const cif = req.params.cif;
         const data = await CommerceModel.findOne({ cif });
         if (!data)
-            throw new Error('Commerce not found.');
+            return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);
         res.send(data);
 
     } catch (err) {
@@ -46,7 +44,7 @@ const createItem = async (req, res) => {
         res.send(data);
 
     } catch (err) {
-        handleHttpError(res, 'ERROR_CREATE_ITEMS');
+        handleHttpError(res, 'ERROR_CREATE_ITEM');
     }
 }
 
@@ -55,12 +53,12 @@ const updateItem = async (req, res) => {
         const body = matchedData(req);
         const data = await CommerceModel.findOneAndUpdate({ _id: req.body._id }, body);
         if (!data)
-            throw new Error('Commerce not found.');
+            return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);
 
         res.send(data);
 
     } catch (err) {
-        handleHttpError(res, 'ERROR_UPDATE_ITEMS');
+        handleHttpError(res, 'ERROR_UPDATE_ITEM');
     }
 }
 
@@ -69,29 +67,11 @@ const deleteItemByCIF = async (req, res) => {
         const body = matchedData(req);
         const data = await CommerceModel.deleteOne({ cif: body.cif });
         if (!data)
-            throw new Error('Commerce not found.');
+            return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);
         res.send(data);
-
-        /*
-        const cif = req.params.cif;
-        const type = req.query.tipo;
-
-        const allowedTypes = ['logico', 'fisico'];
-        if (!allowedTypes.includes(type))
-            throw new Error('Tipo invalido');
-
-        let data;
-
-        if (type === 'logico')
-            data = await CommerceModel.deleteOne({ cif: cif });
-        else if (type === 'fisico')
-            data = await CommerceModel.findOneAndDelete({ cif: cif });
-
-        res.send(data);
-        */
 
     } catch (err) {
-        handleHttpError(res, 'ERROR_DELTE_ITEMS');
+        handleHttpError(res, 'ERROR_DELTE_ITEM');
     }
 }
 

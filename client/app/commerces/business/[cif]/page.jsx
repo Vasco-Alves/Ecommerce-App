@@ -98,6 +98,7 @@ const BussinessPage = ({ params }) => {
                                 interest.toLowerCase() === (commerce?.activity || '').toLowerCase()
                         )
                 ));
+
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching user data:', error);
@@ -141,7 +142,7 @@ const BussinessPage = ({ params }) => {
                             <div className="border-t-2 border-b-2 border-black py-6">
                                 <h2 className="text-xl font-bold">Reviews:</h2>
                                 <ul className="mt-7 px-3 list-disc">
-                                    {commerce.reviews.map(t => (
+                                    {commerce.reviews && commerce.reviews.map(t => (
                                         <li key={t}>{t}</li>
                                     ))}
                                 </ul>
