@@ -35,7 +35,7 @@ const Commerce = ({ id, name, cif, city, email, phone, coverImg, isModalOpen, de
                 <img
                     src="/trashcan.png"
                     className={`w-8 h-8 transition-opacity duration-300 ${isDeleteHovered ? 'opacity-100 hover:cursor-pointer' : 'opacity-0'}`}
-                    onClick={() => { if (!isModalOpen) deleteCommerce(id) }}
+                    onClick={() => { if (!isModalOpen) deleteCommerce(cif) }}
                 />
                 {/* <button className={`w-5 h-5 bg-white rounded-full transition-opacity duration-300 ${isDeleteHovered ? 'opacity-100' : 'opacity-0'}`} onClick={() => { if (!isModalOpen) alert(123) }} /> */}
             </div>

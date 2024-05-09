@@ -1,13 +1,15 @@
+/**
+ * Controladores para realizar operaciones en 
+ * la base de datos para usuarios.
+ */
 
 const { matchedData } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
-
 const { tokenSign } = require("../utils/handleJWT");
 const { encrypt, compare } = require("../utils/handlePassword");
 
 const UsersModel = require('../models/user');
 
-/** Registra un usuario en la base de datos. */
 const register = async (req, res) => {
     try {
         req = matchedData(req);
@@ -15,6 +17,8 @@ const register = async (req, res) => {
         const password = await encrypt(req.password);
         const body = { ...req, password };
         const user = await UsersModel.create(body);
+        if (!user)
+            throw new Error('Couldn\'t create user');
         // dataUser.set('password', undefined, { strict: false }); // Remueve password de la respuesta
 
         const data = {
@@ -25,12 +29,10 @@ const register = async (req, res) => {
 
 
     } catch (error) {
-        console.error(error);
         handleHttpError(res, "ERROR_REGISTER_USER");
     }
 }
 
-/** Realiza el login de un usuario. */
 const login = async (req, res) => {
     try {
         req = matchedData(req);
@@ -51,7 +53,6 @@ const login = async (req, res) => {
         res.send(data);
 
     } catch (error) {
-        console.error(error);
         handleHttpError(res, "ERROR_LOGIN_USER");
     }
 }

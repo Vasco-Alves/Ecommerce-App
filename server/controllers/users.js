@@ -1,21 +1,26 @@
 /**
  * Controladores para realizar operaciones en 
- * la base de datos para el Comercio.
+ * la base de datos para usuarios.
  */
 
+const { matchedData } = require('express-validator');
 const { handleHttpError } = require('../utils/handleError');
 
 const UserModel = require('../models/user');
 
-/** Obtiene todos los comercios en la base de datos */
 const getItems = async (req, res) => {
     try {
-        const data = await User.find();
-        // Remueve las contraseñas de cada usuario para la respuesta
-        const modifiedData = data.map(user => {
-            const { password, ...userWithoutPassword } = user.toObject();
-            return userWithoutPassword;
-        });
+        const data = await UserModel.find();
+        if (!data)
+            throw new Error('No users found.');
+
+        // Remove passwords and filter out users of type 'admin'
+        const modifiedData = data
+            .filter(user => user.type !== 'admin')
+            .map(user => {
+                const { password, ...userWithoutPassword } = user.toObject();
+                return userWithoutPassword;
+            });
         res.send(modifiedData);
 
     } catch (error) {
@@ -24,15 +29,14 @@ const getItems = async (req, res) => {
     }
 }
 
-/** Obtiene un solo comercio con un CIF específico */
 const getItemById = async (req, res) => {
     try {
         const id = req.params.id;
-        const user = await UserModel.findById(id);
-        if (!user)
+        const data = await UserModel.findById(id);
+        if (!data)
             return handleHttpError(res, 'ERROR_USER_NOT_FOUND');
 
-        const { password, ...userWithoutPassword } = user.toObject(); // Remueve la contraseña de la respuesta
+        const { password, ...userWithoutPassword } = data.toObject(); // Remueve la contraseña de la respuesta
         res.send(userWithoutPassword);
 
     } catch (error) {
@@ -46,11 +50,11 @@ const updateItem = async (req, res) => {
         const userId = req.params.id;
         const updatedUserData = req.body;
 
-        const updatedUser = await UserModel.findByIdAndUpdate(userId, updatedUserData);
-        if (!updatedUser)
+        const data = await UserModel.findByIdAndUpdate(userId, updatedUserData);
+        if (!data)
             return handleHttpError(res, 'ERROR_USER_NOT_FOUND', 404);
 
-        res.send('');
+        res.send(data);
 
     } catch (error) {
         console.error('Error updating user:', error);
@@ -60,9 +64,10 @@ const updateItem = async (req, res) => {
 
 const deleteItem = async (req, res) => {
     try {
-        const { id } = matchedData(req)
+        const { id } = matchedData(req);
         const data = await UserModel.deleteOne({ _id: id });
-        res.send(data)
+        res.send(data);
+
     } catch (error) {
         console.error('Error updating user:', error);
         handleHttpError(res, 'ERROR_DELETE_USER', 500);

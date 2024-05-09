@@ -7,10 +7,6 @@ const mongoose = require('mongoose');
 
 const CommerceSchema = new mongoose.Schema(
     {
-        page_id: {
-            type: String,
-            required: true
-        },
         name: {
             type: String,
             required: true
@@ -36,11 +32,9 @@ const CommerceSchema = new mongoose.Schema(
         },
         description: {
             type: String,
-            required: true
         },
         activity: {
             type: String,
-            required: true
         },
         images: [{
             type: String

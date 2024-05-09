@@ -6,8 +6,8 @@ import { useSearchParams } from 'next/navigation';
 
 const CommercePage = () => {
     const searchParams = useSearchParams();
-
     const businessCIF = searchParams.get('cif');
+
     const [commerce, setCommerce] = useState('');
     const [loading, setLoading] = useState(true);
 

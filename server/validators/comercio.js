@@ -14,15 +14,14 @@ const validateCif = [
 ];
 
 const validateCreate = [
-    check('page_id').notEmpty(),
     check('name').notEmpty(),
     check('cif').notEmpty(),
     check('city').notEmpty(),
-    check('email').isEmail(),
+    check('email').notEmpty().isEmail(),
     check('phone').notEmpty(),
-    check('cover').optional().notEmpty(), //.isURL()
-    check('description').notEmpty(),
-    check('activity').notEmpty(),
+    check('cover').optional(), //.isURL()
+    check('description').optional(),
+    check('activity').optional(),
     check('images').optional().isArray(),
     check('images.*').optional().isURL(),
     check('reviews').optional().isArray(),

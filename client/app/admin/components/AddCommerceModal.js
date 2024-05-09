@@ -1,22 +1,20 @@
 
 import React, { useState } from 'react';
-import { v4 as uuidv4 } from 'uuid';
+// import { v4 as uuidv4 } from 'uuid';
 
 const AddCommerceModal = ({ onClose, onAddCommerce }) => {
     const [formData, setFormData] = useState({
-        id: 0,
         name: '',
         cif: '',
         city: '',
         email: '',
         phone: '',
-        cover: null,
+        cover: '',
         description: '',
         activity: '',
         images: [],
         reviews: [],
         score: 0,
-        votesNum: 0,
         upvotes: 0,
         downvotes: 0
     });
@@ -26,28 +24,27 @@ const AddCommerceModal = ({ onClose, onAddCommerce }) => {
     };
 
     const handleAddCommerce = () => {
-        // TODO: Perform validation if needed
-
-        const newCommerce = { ...formData, id: uuidv4() };
-        onAddCommerce(newCommerce);
+        // const newCommerce = { ...formData, id: uuidv4() };
+        onAddCommerce(formData);
 
         // Reset form data to its initial state
         setFormData({
-            id: 0,
             name: '',
             cif: '',
             city: '',
             email: '',
             phone: '',
-            cover: null,
+            cover: '',
             description: '',
+            activity: '',
+            images: [],
             reviews: [],
-            text: [],
             score: 0,
-            votesNum: 0
+            upvotes: 0,
+            downvotes: 0
         });
 
-        onClose(); // Close the modal
+        onClose();
     };
 
     return (

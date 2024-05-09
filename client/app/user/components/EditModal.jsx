@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const EditModal = ({ onClose, onEdit, onDelete, setUser, user }) => {
+const EditModal = ({ closeModal, onEdit, onDelete, setUser, user }) => {
 
     const [interestsData, setInterestsData] = useState([]);
 
@@ -25,7 +25,12 @@ const EditModal = ({ onClose, onEdit, onDelete, setUser, user }) => {
 
     const saveChanges = () => {
         onEdit();
-        onClose();
+        closeModal();
+    }
+
+    const deleteUser = () => {
+        onDelete();
+        closeModal();
     }
 
     useEffect(() => {
@@ -100,7 +105,7 @@ const EditModal = ({ onClose, onEdit, onDelete, setUser, user }) => {
                     </div>
                     <div className="flex flex-row gap-2 justify-between">
                         <button
-                            onClick={onDelete}
+                            onClick={deleteUser}
                             className="px-4 py-2 rounded-lg border-2 font-bold border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
                             Delete
                         </button>

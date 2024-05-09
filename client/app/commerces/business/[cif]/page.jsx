@@ -6,77 +6,107 @@ import React, { useState, useEffect } from 'react';
 import EditModal from '../components/EditModal';
 
 const BussinessPage = ({ params }) => {
-    const commerceId = params.businessId;
-
+    const businessCIF = params.cif;
     const router = useRouter();
 
     const [isLoading, setLoading] = useState(true);
     const [isModalOpen, setModalOpen] = useState(false);
-
     const [commerce, setCommerce] = useState([]);
     const [users, setUsers] = useState([]);
 
-    const openModal = () => { setModalOpen(true) };
-    const closeModal = () => { setModalOpen(false) };
+    const openModal = () => { setModalOpen(true) }
 
-    const saveChanges = (updatedCommerce) => {
-        setCommerce(updatedCommerce);
+    const closeModal = () => { setModalOpen(false) }
 
-        // Petición PUT para actualizar los datos del comercio
-        fetch('/api/commerces', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(updatedCommerce)
-        }).then(res => res.json()).then(data => console.log(data));
+    const logout = () => {
+        router.replace('/');
+        localStorage.removeItem('token');
     }
 
-    const deleteCommerce = (id) => {
-        // Petición DELETE para eliminar comercio
-        fetch('/api/commerces', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
-        }).then(res => res.json()).then(router.replace('/'));
+    const saveChanges = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
+
+            const response = await fetch(`http://localhost:3000/api/comercio/${commerce._id}`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(commerce)
+            });
+
+            if (!response.ok)
+                throw new Error('Error updating commerce.');
+
+            router.replace(`/commerces/business/${commerce.cif}`);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const deleteCommerce = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
+
+            const response = await fetch(`http://localhost:3000/api/comercio/${commerce.cif}`, {
+                method: 'DELETE',
+                headers: { Authorization: `Bearer ${token}` }
+            });
+
+            if (!response.ok)
+                throw new Error('Error deleting commerce.');
+
+            logout();
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     useEffect(() => {
-        const fetchData = async () => {
+        const fetchCommerceData = async () => {
             try {
-                const commerceResponse = await fetch('/api/commerces');
-                const commerceData = await commerceResponse.json();
-                const currentCommerce = commerceData.commerces.find(c => c.id === commerceId);
+                const response = await fetch(`http://localhost:3000/api/comercio/${businessCIF}`);
+                const data = await response.json();
 
-                setCommerce(currentCommerce);
+                setCommerce(data);
             } catch (error) {
                 console.error('Error fetching commerce data:', error);
             }
-        };
-        fetchData();
-    }, [commerceId]);
+        }
+
+        fetchCommerceData();
+    }, [businessCIF]);
 
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const usersResponse = await fetch('/api/users');
-                const userData = await usersResponse.json();
+                const response = await fetch('http://localhost:3000/api/users');
+                const data = await response.json();
 
-                setUsers(
-                    userData.users.filter(
-                        user =>
-                            user.enableOffers === true &&
-                            user.interests.some(
-                                interest =>
-                                    interest.toLowerCase() === (commerce?.activity || '').toLowerCase()
-                            )
-                    )
-                );
+                // Only users with enableOffers enabled and interested in commerce activity
+                setUsers(data.filter(
+                    user =>
+                        user.enableOffers === true && user.interests.some(
+                            interest =>
+                                interest.toLowerCase() === (commerce?.activity || '').toLowerCase()
+                        )
+                ));
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching user data:', error);
             }
-        };
+        }
+
         fetchUserData();
     }, [commerce]);
+
 
     return (
         <div className="min-h-screen w-full flex flex-col items-center justify-center p-0">

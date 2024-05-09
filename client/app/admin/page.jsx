@@ -17,47 +17,59 @@ const AdminPage = () => {
     const [isModalOpen, setModalOpen] = useState(false);
     const [loading, setLoading] = useState(true);
 
-    const openModal = () => { setModalOpen(true) };
-    const closeModal = () => { setModalOpen(false) };
+    const openModal = () => { setModalOpen(true) }
+    const closeModal = () => { setModalOpen(false) }
 
-    const addCommerce = (newCommerce) => {
-        setCommerceList([...commerceList, newCommerce]);
+    const fetchData = async () => {
+        try {
+            const response = await fetch('http://localhost:3000/api/comercio');
+            const data = await response.json();
 
-        // Petición POST para guardar comercios
-        fetch('/api/commerces', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(newCommerce)
-        }).then(res => res.json()).then(data => console.log(data));
-    };
-
-    const deleteCommerce = (id) => {
-        setCommerceList(commerceList.filter(c => c.id !== id));
-
-        // Petición DELETE para eliminar comercio
-        fetch('/api/commerces', {
-            method: 'DELETE',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ id })
-        }).then(res => res.json()).then(data => console.log(data));
+            setCommerceList(data);
+            setLoading(false);
+        } catch (error) {
+            console.error('Error fetching commerce data:', error);
+        }
     }
 
-    // Petición GET
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await fetch('/api/commerces');
-                const data = await response.json();
+    const logout = () => {
+        router.replace('/');
+        localStorage.removeItem('token')
+    }
 
-                setCommerceList(data.commerces);
-                setLoading(false);
-            } catch (error) {
-                console.error('Error fetching commerce data:', error);
-            }
+    const addCommerce = async (newCommerce) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
+
+            const response = await fetch(`http://localhost:3000/api/comercio`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(newCommerce)
+            });
+
+            if (!response.ok)
+                throw new Error('Error creating commerce.');
+
+
+            const data = await response.json();
+            console.log(data.token);
+
+            fetchData();
+
+        } catch (error) {
+            console.error(error);
         }
+    };
 
-        fetchData();
-    }, []);
+
+    const deleteCommerce = async (cif) => {}
+
+    useEffect(() => { fetchData() }, []);
 
     return (
         <div className="min-h-screen min-w-full flex flex-col items-center bg-gradient-to-r from-teal-400 to-teal-700 pb-7">
@@ -88,7 +100,7 @@ const AdminPage = () => {
                         Add
                     </button>
                     <button
-                        onClick={() => router.replace('/')}
+                        onClick={() => logout()}
                         className="bg-teal-700 hover:bg-teal-500 text-white md:text-xl p-2.5 rounded">
                         Log Out
                     </button>
@@ -102,9 +114,9 @@ const AdminPage = () => {
                     {commerceList.filter((c) =>
                         c.name.toLowerCase().includes(nameFilter) &&
                         c.city.toLowerCase().includes(cityFilter))
-                        .map((c) => (
-                            <Commerce key={c.id}
-                                id={c.id}
+                        .map((c, index) => (
+                            <Commerce key={index}
+                                id={c._id}
                                 name={c.name}
                                 cif={c.cif}
                                 city={c.city}

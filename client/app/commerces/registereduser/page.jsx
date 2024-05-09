@@ -6,7 +6,7 @@ import { useSearchParams } from 'next/navigation';
 
 const CommercePage = () => {
     const searchParams = useSearchParams();
-    const commerceId = searchParams.get('id');
+    const businessCIF = searchParams.get('cif');
 
     const [commerce, setCommerce] = useState('');
     const [loading, setLoading] = useState(true);
@@ -17,18 +17,28 @@ const CommercePage = () => {
     const totalVotes = upvotes + downvotes;
     const score = totalVotes === 0 ? 0 : (upvotes / totalVotes) * 5;
 
-    const saveChanges = () => {
+    const saveChanges = async () => {
         commerce.upvotes = upvotes;
         commerce.downvotes = downvotes;
         commerce.score = parseFloat(score.toFixed(1));
 
-        // Petición PUT para actualizar los datos del comercio
-        fetch('/api/commerces', {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(commerce)
-        }).then(res => { return res.json() }).then(data => console.log(data))
-            .catch(error => console.error('Error updating commerce data:', error));
+        const { _id, ...commerceData } = commerce;
+
+        console.log(commerceData)
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/comercio/${businessCIF}`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(commerceData)
+            });
+
+            if (!response.ok)
+                throw new Error('Error updating user.');
+
+        } catch (error) {
+            console.error(error);
+        }
     }
 
     const handleUpvote = () => {
@@ -43,22 +53,22 @@ const CommercePage = () => {
 
     const addReview = () => {
         const newReview = prompt('Enter your review:');
-        if (newReview) {
-            const updatedReviews = [...commerce.reviews, newReview];
-            setCommerce((prevCommerce) => {
-                return { ...prevCommerce, reviews: updatedReviews };
-            });
-        }
+        if (!newReview)
+            return;
+
+        const updatedReviews = [...commerce.reviews, newReview];
+        setCommerce((prevCommerce) => {
+            return { ...prevCommerce, reviews: updatedReviews };
+        }, () => { saveChanges() });
     }
 
     useEffect(() => {
-        // Petición GET para obtener información del comercio
         const fetchData = async () => {
             try {
-                const response = await fetch('/api/commerces');
+                const response = await fetch(`http://localhost:3000/api/comercio/${businessCIF}`);
                 const data = await response.json();
 
-                setCommerce(data.commerces.find(c => c.id === commerceId));
+                setCommerce(data);
                 setLoading(false);
             } catch (error) {
                 console.error('Error fetching commerce data:', error);
@@ -66,7 +76,7 @@ const CommercePage = () => {
         }
 
         fetchData();
-    }, [commerceId]);
+    }, [businessCIF]);
 
     useEffect(() => {
         if (commerce) {

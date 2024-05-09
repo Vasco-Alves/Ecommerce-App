@@ -71,7 +71,6 @@ const RegisterPage = () => {
             }
 
             const data = await response.json();
-
             localStorage.setItem('token', data.token);
             router.push(`/user/${data.user}`);
 

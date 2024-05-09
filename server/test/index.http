@@ -1,19 +1,19 @@
-// Petición GET de todos los comercios.
+// GET de todos los comercios.
 GET http://localhost:3000/api/comercio HTTP/1.1
 
 ###
 
-// Petición GET de todos un comercio por su CIF.
+// GET de un comercio por su CIF.
 GET http://localhost:3000/api/comercio/B00116546 HTTP/1.1
 
 ###
 
-// Petición GET de comercio por su CIF.
+// Creación de un comercio.
 POST http://localhost:3000/api/comercio HTTP/1.1
 Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NjNiYzVkMDFlNDVkYzEwNDVkNDhkYjQiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImlhdCI6MTcxNTI1MDkwMCwiZXhwIjoxNzE1MjU4MTAwfQ.FlOkW4532r8Rtw-Rq9m5dusxRGBGNlhy0ey-p3i_W8g
 
 {
-  "page_id": "9becf8b5-9869-4d08-94be-6f06e337015c",
   "name": "Coffee Delight",
   "cif": "B23456789",
   "city": "Madrid",
@@ -23,11 +23,7 @@ Content-Type: application/json
   "description": "Coffee Delight is a cozy and inviting coffee shop where the rich aroma of freshly brewed coffee welcomes you upon entry. With its warm and modern ambiance, Coffee Delight is the perfect haven for coffee enthusiasts and those seeking a delightful break. Offering a curated selection of premium coffee blends, artisanal pastries, and a tranquil atmosphere, this charming coffee destination promises a delightful experience for every sip and moment shared with friends or in quiet contemplation.",
   "activity": "Food",
   "images": [],
-  "reviews": [
-    "Cozy ambiance, amazing coffee!",
-    "Perfect spot for coffee lovers.",
-    "Delightful experience every visit."
-  ],
+  "reviews": [],
   "score": 0,
   "upvotes": 0,
   "downvotes": 0
@@ -40,7 +36,6 @@ POST http://localhost:3000/api/comercio HTTP/1.1
 Content-Type: application/json
 
 {
-  "page_id": "657578e2-919a-4234-9866-3ad6cec70021",
   "name": "Sweet Delight",
   "cif": "B1857354",
   "city": "Valencia",

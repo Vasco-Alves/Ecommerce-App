@@ -2,11 +2,25 @@
 const jwt = require("jsonwebtoken");
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const tokenSign = async (user) => {
+const tokenSign = async (model) => {
     const sign = jwt.sign(
         {
-            _id: user._id,
-            email: user.email
+            _id: model._id,
+        },
+        JWT_SECRET,
+        {
+            expiresIn: "2h"
+        }
+    );
+
+    return sign;
+}
+
+const signCommerceToken = async (commerce) => {
+    const sign = jwt.sign(
+        {
+            _id: commerce._id,
+            cif: commerce.cif
         },
         JWT_SECRET,
         {
@@ -21,8 +35,8 @@ const verifyToken = async (tokenJwt) => {
     try {
         return jwt.verify(tokenJwt, JWT_SECRET);
     } catch (error) {
-        console.log(error);
+        console.error(error);
     }
 }
 
-module.exports = { tokenSign, verifyToken };
+module.exports = { tokenSign, signCommerceToken, verifyToken };

@@ -2,23 +2,22 @@
  * Este archivo define las rutas para las operaciones de los usuarios.
  */
 
-const express = require('express'); // Importar el módulo 'express' para manejar las rutas
-const router = express.Router(); // Crear un enrutador para manejar las rutas
+const express = require('express');
+const router = express.Router();
 
 const Controller = require('../controllers/users');
 const Validator = require('../validators/users');
-const authenticateToken = require('../middleware/authenticateToken');
+const Middleware = require('../middleware/authenticateToken');
 
-// GET all users (requires authentication)
-router.get('/', authenticateToken, Controller.getItems);
+router.get('/', Controller.getItems);
 
-// GET user by id (requires authentication)
-router.get('/:id', authenticateToken, Validator.validateId, Controller.getItemById);
+// (user auth)
+router.get('/:id', Middleware.authUserToken, Validator.validateId, Controller.getItemById);
 
-// PUT user by id (requires authentication)
-router.put('/:id', authenticateToken, Controller.updateItem);
+// (user auth)
+router.put('/:id', Middleware.authUserToken, Controller.updateItem);
 
-// DELETE user by id (requires authentication)
-router.delete('/:id', Validator.validateId, Controller.deleteItem);
+// (user auth)
+router.delete('/:id', Middleware.authUserToken, Validator.validateId, Controller.deleteItem);
 
 module.exports = router;

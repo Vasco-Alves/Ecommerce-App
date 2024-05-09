@@ -17,7 +17,6 @@ const Home = () => {
         // petición GET de comercios
         const fetchData = async () => {
             try {
-                // const response = await fetch('/api/commerces');
                 const response = await fetch('http://localhost:3000/api/comercio');
                 const data = await response.json();
 

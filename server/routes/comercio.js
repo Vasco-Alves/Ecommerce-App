@@ -2,25 +2,24 @@
  * Este archivo define las rutas para las operaciones de los comercios.
  */
 
-const express = require('express'); // Importar el módulo 'express' para manejar las rutas
-const router = express.Router(); // Crear un enrutador para manejar las rutas
+const express = require('express');
+const router = express.Router();
 
-const CommerceController = require('../controllers/comercio'); // Controlador
-const CommerceValidator = require("../validators/comercio"); // Validador
+const Controller = require('../controllers/comercio');
+const Validator = require("../validators/comercio");
+const Middleware = require('../middleware/authenticateToken');
 
-// Obtiene la lista de comercios.
-router.get('/', CommerceController.getItems);
+router.get('/', Controller.getItems);
 
-// Obtiene un solo comercio mediante su número de CIF.
-router.get('/:cif', CommerceValidator.validateCif, CommerceController.getItemByCIF);
+router.get('/:cif', Validator.validateCif, Controller.getItemByCIF);
 
-// Crea un nuevo item de comercio, validando los datos de entrada.
-router.post('/', CommerceValidator.validateCreate, CommerceController.createItem);
+// (user auth)
+router.post('/', Middleware.authUserToken, Validator.validateCreate, Controller.createItem);
 
-// Actualiza un comercio existente mediante su número de CIF.
-router.put('/:cif', CommerceValidator.validateCreate, CommerceController.updateItem);
+// (commerce auth)
+router.put('/:id', Middleware.authCommerceToken, Validator.validateCreate, Controller.updateItem);
 
-// Elimina un comercio existente mediante su número de CIF.
-router.delete('/:cif', CommerceValidator.validateCif, CommerceController.deleteItem);
+// (commerce auth)
+router.delete('/:cif', Middleware.authCommerceToken, Validator.validateCif, Controller.deleteItemByCIF);
 
 module.exports = router;
