@@ -72,7 +72,7 @@ const RegisterPage = () => {
 
             const data = await response.json();
             localStorage.setItem('token', data.token);
-            router.push(`/user/${data.user}`);
+            router.push(`/user/${data.user.username}`);
 
         } catch (error) {
             console.error('Error al registrarse', error);

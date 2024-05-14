@@ -20,9 +20,10 @@ const register = async (req, res) => {
         if (!user)
             throw new Error('Couldn\'t create user.');
 
+        user.set('password', undefined, { strict: false });
         const data = {
             token: await tokenSign(user),
-            user: user.username
+            user: user
         };
         res.send(data);
 

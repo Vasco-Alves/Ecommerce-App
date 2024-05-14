@@ -29,6 +29,10 @@ const UserSchema = new mongoose.Schema(
         gender: {
             type: String
         },
+        city: {
+            type: String,
+            required: true
+        },
         interests: [{
             type: String
         }],
