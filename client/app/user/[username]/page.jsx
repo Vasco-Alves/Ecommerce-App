@@ -167,12 +167,13 @@ const UserHome = ({ params }) => {
                                 </Link>
 
                                 {/* Info */}
-                                <div className="lg:w-96 p-4 lg:py-20 bg-white rounded shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
+                                <div className="lg:w-96 p-4 lg:py-10 bg-white rounded shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
                                     <div className="flex flex-col sm:flex-row lg:flex-col sm:items-center justify-between gap-4 w-full h-full">
                                         <h1 className="font-bold text-center text-3xl xl:text-4xl">{c.name}</h1>
-                                        <div className="flex gap-6">
+                                        <div className="flex flex-wrap justify-center gap-6">
                                             <h3><span className="font-bold">Activity: </span>{c.activity}</h3>
                                             <h3><span className="font-bold">Score: </span>{c.score}</h3>
+                                            <h3><span className="font-bold">City: </span>{c.city}</h3>
                                         </div>
                                     </div>
                                 </div>

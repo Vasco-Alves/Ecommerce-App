@@ -1,6 +1,5 @@
 [
     {
-        "id": "9becf8b5-9869-4d08-94be-6f06e337015c",
         "name": "Coffee Delight",
         "cif": "B23456789",
         "city": "Madrid",
@@ -17,12 +16,10 @@
         ],
         "score": 0,
         "upvotes": 0,
-        "downvotes": 0,
-        "votesNum": 0
+        "downvotes": 0
     },
     {
-        "id": "657578e2-919a-4234-9866-3ad6cec70021",
-        "name": "Sweet ",
+        "name": "Sweet Paradise",
         "cif": "B1857354",
         "city": "Valencia",
         "email": "info@sweetparadise.com",
@@ -38,11 +35,9 @@
         ],
         "score": 0,
         "upvotes": 0,
-        "downvotes": 0,
-        "votesNum": 0
+        "downvotes": 0
     },
     {
-        "id": "bee0c625-e0e5-440c-935f-f7735784a1ba",
         "name": "Fashion Trends Boutique",
         "cif": "B98765432",
         "city": "Madrid",
@@ -60,11 +55,9 @@
         ],
         "score": 0,
         "upvotes": 0,
-        "downvotes": 0,
-        "votesNum": 0
+        "downvotes": 0
     },
     {
-        "id": "3d0e556c-4b5f-4a2b-aa83-6e3010261b72",
         "name": "Velocity Motors",
         "cif": "B4575259742",
         "city": "Sevilla",
@@ -79,7 +72,6 @@
         ],
         "score": 0,
         "upvotes": 0,
-        "downvotes": 0,
-        "votesNum": 0
+        "downvotes": 0
     }
 ]

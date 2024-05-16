@@ -8,7 +8,25 @@ const { handleHttpError } = require('../utils/handleError');
 const { tokenSign } = require("../utils/handleJWT");
 const { encrypt, compare } = require("../utils/handlePassword");
 
-const UsersModel = require('../models/user');
+const UserModel = require('../models/user');
+
+const getUsers = async (req, res) => {
+    try {
+        const data = await UserModel.find();
+
+        // Remove passwords and filter out users of type 'admin'
+        const modifiedData = data
+            .filter(user => user.type !== 'admin')
+            .map(user => {
+                const { password, ...userWithoutPassword } = user.toObject();
+                return userWithoutPassword;
+            });
+        res.send(modifiedData);
+
+    } catch (error) {
+        handleHttpError(res, 'ERROR_GET_ITEMS');
+    }
+}
 
 const register = async (req, res) => {
     try {
@@ -16,7 +34,7 @@ const register = async (req, res) => {
 
         const password = await encrypt(req.password);
         const body = { ...req, password };
-        const user = await UsersModel.create(body);
+        const user = await UserModel.create(body);
         if (!user)
             throw new Error('Couldn\'t create user.');
 
@@ -36,7 +54,7 @@ const login = async (req, res) => {
     try {
         req = matchedData(req);
 
-        const user = await UsersModel.findOne({ email: req.email });
+        const user = await UserModel.findOne({ email: req.email });
         if (!user)
             return handleHttpError(res, 'ERROR_USER_NOT_FOUND', 404);
 
@@ -56,4 +74,4 @@ const login = async (req, res) => {
     }
 }
 
-module.exports = { register, login };
+module.exports = { getUsers, register, login };

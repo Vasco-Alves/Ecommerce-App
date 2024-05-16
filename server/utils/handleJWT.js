@@ -27,7 +27,7 @@ const signCommerceToken = async (commerce) => {
         },
         JWT_SECRET,
         {
-            expiresIn: "2h"
+            expiresIn: "24h"
         }
     );
 

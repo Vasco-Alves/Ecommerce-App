@@ -125,7 +125,10 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold">Password</h2>
+                        <div className="flex justify-between">
+                            <h2 className="text-lg font-semibold">Password</h2>
+                            <p>(8-16 characters)</p>
+                        </div>
                         <input
                             type="password"
                             name="password"
@@ -136,7 +139,11 @@ const RegisterPage = () => {
                         />
                     </div>
                     <div>
-                        <h2 className="text-lg font-semibold">Retype password</h2>
+                        <div className="flex justify-between">
+                            <h2 className="text-lg font-semibold">Retype password</h2>
+                            <p>(8-16 characters)</p>
+                        </div>
+
                         <input
                             type="password"
                             value={password2}
@@ -177,16 +184,30 @@ const RegisterPage = () => {
                                 placeholder="18-99"
                             />
                         </div>
-                        <div className="flex flex-row items-center gap-4">
-                            <h2 className="text-lg font-semibold">Enable Offers</h2>
-                            <input
-                                name="enableOffers"
-                                className="w-4 h-4 rounded"
-                                type="checkbox"
-                                checked={formData.enableOffers}
-                                onChange={(e) => handleCheckboxChange(e.target.name, e.target.checked)}
-                            />
+                        <div className="flex flex-col items-center">
+                            <h2 className="text-lg font-semibold">Gender</h2>
+                            <select
+                                name="gender"
+                                value={formData.gender}
+                                onChange={handleInputChange}
+                                className="block w-24 mt-2 p-3 border rounded"
+                            >
+                                <option value="">Select</option>
+                                <option value="male">Male</option>
+                                <option value="female">Female</option>
+                            </select>
                         </div>
+
+                    </div>
+                    <div className="flex flex-row items-center gap-4">
+                        <h2 className="text-lg font-semibold">Enable Offers</h2>
+                        <input
+                            name="enableOffers"
+                            className="w-4 h-4 rounded"
+                            type="checkbox"
+                            checked={formData.enableOffers}
+                            onChange={(e) => handleCheckboxChange(e.target.name, e.target.checked)}
+                        />
                     </div>
                     <div className="flex flex-col justify-between gap-4">
                         <h2 className="text-lg font-semibold">Interests</h2>
@@ -215,114 +236,6 @@ const RegisterPage = () => {
             </div>
         </div>
     );
-
-    // return (
-    //     <div className="absolute min-h-screen min-w-full flex flex-col justify-center items-center bg-gradient-to-br from-gray-800 to-blue-300">
-    //         <div className="text-5xl font-bold mb-9  text-white">Sign In</div>
-    //         <div className="flex flex-col bg-white bg-opacity-20 p-10 rounded-lg w-96 shadow-[rgba(0,_0,_0,_0.4)_0px_30px_90px]">
-    //             <div>
-    //                 <h2 className="text-lg font-semibold">Username</h2>
-    //                 <input
-    //                     type="text"
-    //                     name="username"
-    //                     value={formData.username}
-    //                     onChange={handleInputChange}
-    //                     className="block w-full mt-2 p-3 border rounded"
-    //                     placeholder="Guest123"
-    //                 />
-    //             </div>
-    //             <div>
-    //                 <h2 className="text-lg font-semibold">Email</h2>
-    //                 <input
-    //                     type="email"
-    //                     name="email"
-    //                     value={formData.email}
-    //                     onChange={handleInputChange}
-    //                     className="block w-full mt-2 p-3 border rounded"
-    //                     placeholder="email@example.com"
-    //                 />
-    //             </div>
-    //             <div>
-    //                 <h2 className="text-lg font-semibold">Password</h2>
-    //                 <input
-    //                     type="password"
-    //                     name="password"
-    //                     value={formData.password}
-    //                     onChange={handleInputChange}
-    //                     className="block w-full mt-2 p-3 border rounded"
-    //                     placeholder="••••••••••••"
-    //                 />
-    //             </div>
-    //             <div>
-    //                 <h2 className="text-lg font-semibold">Retype password</h2>
-    //                 <input
-    //                     type="password"
-    //                     value={password2}
-    //                     onChange={(e) => setPassword2(e.target.value)}
-    //                     className="block w-full mt-2 p-3 border rounded"
-    //                     placeholder="••••••••••••"
-    //                 />
-    //             </div>
-    //             <div>
-    //                 <h2 className="text-lg font-semibold">City</h2>
-    //                 <input
-    //                     type="text"
-    //                     name="city"
-    //                     value={formData.city}
-    //                     onChange={handleInputChange}
-    //                     className="block w-full mt-2 p-3 border rounded"
-    //                     placeholder="Madrid..."
-    //                 />
-    //             </div>
-    //             <div className="mb-6 flex flex-row justify-evenly gap-7">
-    //                 <div className="gap-3">
-    //                     <h2 className="text-lg font-semibold">Age</h2>
-    //                     <input
-    //                         type="number"
-    //                         name="age"
-    //                         value={formData.age}
-    //                         onChange={handleInputChange}
-    //                         className="block w-24 mt-2 p-3 border rounded"
-    //                         placeholder="18-99"
-    //                     />
-    //                 </div>
-    //                 <div className="flex flex-row items-center mt-6 gap-4">
-    //                     <h2 className="text-lg font-semibold">Enable Offers</h2>
-    //                     <input
-    //                         name="enableOffers"
-    //                         className="w-4 h-4 rounded"
-    //                         type="checkbox"
-    //                         checked={formData.enableOffers}
-    //                         onChange={(e) => handleCheckboxChange(e.target.name, e.target.checked)}
-    //                     />
-    //                 </div>
-    //                 <div>
-    //                     <h2 className="text-lg font-semibold">Interests</h2>
-    //                     <div className="flex flex-wrap gap-4 mt-2">
-    //                         {interestsData.map((interest) => (
-    //                             <div key={interest} className="flex items-center">
-    //                                 <input
-    //                                     type="checkbox"
-    //                                     id={interest}
-    //                                     name={interest}
-    //                                     checked={formData.interests.includes(interest)}
-    //                                     onChange={() => handleCheckboxChange('interests', interest)}
-    //                                     className="mr-2"
-    //                                 />
-    //                                 <label htmlFor={interest} className="text-sm">{interest}</label>
-    //                             </div>
-    //                         ))}
-    //                     </div>
-    //                 </div>
-    //             </div>
-    //             <button
-    //                 onClick={handleRegister}
-    //                 className="w-full bg-blue-500 text-white p-3 rounded hover:bg-sky-700">
-    //                 Sign In
-    //             </button>
-    //         </div>
-    //     </div >
-    // );
 }
 
 export default RegisterPage;

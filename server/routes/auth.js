@@ -2,8 +2,14 @@
 const express = require('express');
 const router = express.Router();
 
-const Controller = require('../controllers/auth');
-const Validator = require("../validators/auth");
+const AuthController = require('../controllers/auth');
+const UserController = require('../controllers/users');
+const CommerceController = require('../controllers/comercio');
+const AuthValidator = require('../validators/auth');
+const CommerceValidator = require('../validators/comercio');
+const Middleware = require('../middleware/authenticateToken');
+
+router.get('/users', Middleware.authUserToken, AuthController.getUsers);
 
 /**
  * @openapi
@@ -34,7 +40,7 @@ const Validator = require("../validators/auth");
  *       '500':
  *         description: Server error.
  */
-router.post('/register', Validator.register, Controller.register);
+router.post('/register', AuthValidator.register, AuthController.register);
 
 /**
  * @openapi
@@ -67,6 +73,62 @@ router.post('/register', Validator.register, Controller.register);
  *       '500':
  *         description: Server error.
  */
-router.post('/login', Validator.login, Controller.login);
+router.post('/login', AuthValidator.login, AuthController.login);
+
+/**
+ * @openapi
+ * /api/comercio/{id}:
+ *  put:
+ *      tags:
+ *      - Commerce
+ *      summary: Update a commerce item.
+ *      description: Updates an existing commerce item by its ID.
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: ID of the commerce item to update.
+ *      requestBody:
+ *          required: true
+ *          content:
+ *              application/json:
+ *                  schema:
+ *                      $ref: '#/components/schemas/Commerce'
+ *      responses:
+ *          '200':
+ *              description: Updated commerce item.
+ *          '404':
+ *              description: Commerce item not found.
+ *          '500':
+ *              description: Server error.
+ */
+router.put('/commerce/:id', Middleware.authUserToken, CommerceValidator.validateCreate, CommerceController.updateItem);
+
+/**
+ * @openapi
+ * /api/items/{id}:
+ *  delete:
+ *      tags:
+ *      - Item
+ *      summary: Delete an item.
+ *      description: Deletes an item by its ID.
+ *      parameters:
+ *      - in: path
+ *        name: id
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: ID of the item to delete.
+ *      responses:
+ *          '200':
+ *              description: Item deleted successfully.
+ *          '404':
+ *              description: Item not found.
+ *          '500':
+ *              description: Server error.
+ */
+router.delete('/users/:id', Middleware.authUserToken, UserController.deleteItem);
 
 module.exports = router;

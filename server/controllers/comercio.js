@@ -51,6 +51,7 @@ const createItem = async (req, res) => {
 const updateItem = async (req, res) => {
     try {
         const body = matchedData(req);
+
         const data = await CommerceModel.findOneAndUpdate({ _id: req.body._id }, body);
         if (!data)
             return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);

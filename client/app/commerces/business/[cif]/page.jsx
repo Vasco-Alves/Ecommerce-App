@@ -122,10 +122,16 @@ const BussinessPage = ({ params }) => {
                         <div className="flex flex-col gap-7">
                             <div className="flex flex-row justify-between">
                                 <h1 className="font-bold text-5xl">{commerce.name}</h1>
-                                <button className="h-10 w-28 border-2 border-teal-700 rounded-lg text-teal-700 font-bold hover:bg-teal-700 hover:text-white"
-                                    onClick={openModal}>
-                                    Edit
-                                </button>
+                                <div className="flex gap-3">
+                                    <button className="h-10 w-28 border-2 border-teal-700 rounded-lg text-teal-700 font-bold hover:bg-teal-700 hover:text-white"
+                                        onClick={openModal}>
+                                        Edit
+                                    </button>
+                                    <button className="h-10 w-28 border-2 border-amber-500 rounded-lg text-amber-500 font-bold hover:bg-amber-500 hover:text-white"
+                                        onClick={() => logout()}>
+                                        Logout
+                                    </button>
+                                </div>
                             </div>
                             <div className="flex flex-col gap-4 mt-5">
                                 <p className="text-2xl"><span className="font-bold">Activity: </span>{commerce.activity}</p>

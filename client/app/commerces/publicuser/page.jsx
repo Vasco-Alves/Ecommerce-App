@@ -45,7 +45,7 @@ const CommercePage = () => {
                         </div>
 
                         <div className=" mt-10 grid grid-cols-1 w-full gap-2 border-l-2 border-l-gray-700 pl-4">
-                            <h2 className="text-lg"><span className="font-bold">CIF: </span>{commerce.cif}</h2>
+                            {/* <h2 className="text-lg"><span className="font-bold">CIF: </span>{commerce.cif}</h2> */}
                             <h2 className="text-lg"><span className="font-bold">Phone: </span>{commerce.phone}</h2>
                             <h2 className="text-lg"><span className="font-bold">Email: </span>{commerce.email}</h2>
                             <h2 className="text-lg"><span className="font-bold">City: </span>{commerce.city}</h2>

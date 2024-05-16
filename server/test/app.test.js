@@ -24,9 +24,9 @@ describe('users', () => {
             .set('Accept', 'application/json')
             .expect(200)
 
-        expect(response._body.user.type).toEqual('user');
-        expect(response._body.user.username).toEqual('Menganito');
-        expect(response._body.user.email).toEqual('user25@test.com');
+        expect(response.body.user.type).toEqual('user');
+        expect(response.body.user.username).toEqual('Menganito');
+        expect(response.body.user.email).toEqual('user25@test.com');
 
         token = response.body.token;
         id = response.body.user;
@@ -40,22 +40,23 @@ describe('users', () => {
         });
     */
 
-    // TODO
-    // it('should get the users', async () => {
-    //     const response = await request(app)
-    //         .get('/api/auth/users')
-    //         .auth(token, { type: 'bearer' })
-    //         .set('Accept', 'application/json')
-    //         .expect(200)
-    //     expect(response.body.pop().name).toEqual('Menganito')
-    // });
+    it('should get the users', async () => {
+        const response = await request(app)
+            .get('/api/auth/users')
+            .auth(token, { type: 'bearer' })
+            .set('Accept', 'application/json')
+            .expect(200)
 
-    // it('should delete a user', async () => {
-    //     const response = await request(app)
-    //         .delete('/api/auth/users/' + id)
-    //         .auth(token, { type: 'bearer' })
-    //         .set('Accept', 'application/json')
-    //         .expect(200)
-    //     expect(response.body.acknowledged).toEqual(true)
-    // })
+        expect(response.body.pop().username).toEqual('Menganito');
+    });
+
+    it('should delete a user', async () => {
+        const response = await request(app)
+            .delete('/api/auth/users/' + id)
+            .auth(token, { type: 'bearer' })
+            .set('Accept', 'application/json')
+            .expect(200)
+
+        expect(response.body.acknowledged).toEqual(true);
+    });
 })

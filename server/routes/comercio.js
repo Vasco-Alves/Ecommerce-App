@@ -70,8 +70,8 @@ router.get('/:cif', Validator.validateCif, Controller.getItemByCIF);
  *          '500':
  *              description: Server error.
  */
-
-router.post('/', Middleware.authUserToken, Validator.validateCreate, Controller.createItem);
+router.post('/', Validator.validateCreate, Controller.createItem);
+// Middleware.authUserToken, 
 
 /**
  * @openapi

@@ -14,27 +14,27 @@ const CommercePage = () => {
     const [upvotes, setUpvotes] = useState(0);
     const [downvotes, setDownvotes] = useState(0);
 
-    const totalVotes = upvotes + downvotes;
-    const score = totalVotes === 0 ? 0 : (upvotes / totalVotes) * 5;
+    const totalVotes = commerce.upvotes + commerce.downvotes;
+    const score = totalVotes === 0 ? 0 : ((commerce.upvotes / totalVotes) * 5);
 
     const saveChanges = async () => {
-        commerce.upvotes = upvotes;
-        commerce.downvotes = downvotes;
-        commerce.score = parseFloat(score.toFixed(1));
-
-        const { _id, ...commerceData } = commerce;
-
-        console.log(commerceData)
-
         try {
-            const response = await fetch(`http://localhost:3000/api/comercio/${businessCIF}`, {
+            commerce.score = parseFloat(score.toFixed(2));
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
+
+            const response = await fetch(`http://localhost:3000/api/auth/commerce/${commerce._id}`, {
                 method: 'PUT',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(commerceData)
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                },
+                body: JSON.stringify(commerce)
             });
 
             if (!response.ok)
-                throw new Error('Error updating user.');
+                throw new Error('Error updating commerce.');
 
         } catch (error) {
             console.error(error);
@@ -42,14 +42,15 @@ const CommercePage = () => {
     }
 
     const handleUpvote = () => {
-        setUpvotes(upvotes + 1);
-        saveChanges();
+        const updatedCommerce = { ...commerce, upvotes: commerce.upvotes + 1 };
+        setCommerce(updatedCommerce);
     }
 
     const handleDownvote = () => {
-        setDownvotes(downvotes + 1);
-        saveChanges();
+        const updatedCommerce = { ...commerce, downvotes: commerce.downvotes + 1 };
+        setCommerce(updatedCommerce);
     }
+
 
     const addReview = () => {
         const newReview = prompt('Enter your review:');
@@ -57,9 +58,8 @@ const CommercePage = () => {
             return;
 
         const updatedReviews = [...commerce.reviews, newReview];
-        setCommerce((prevCommerce) => {
-            return { ...prevCommerce, reviews: updatedReviews };
-        }, () => { saveChanges() });
+        const updatedCommerce = { ...commerce, reviews: updatedReviews };
+        setCommerce(updatedCommerce);
     }
 
     useEffect(() => {
@@ -78,14 +78,7 @@ const CommercePage = () => {
         fetchData();
     }, [businessCIF]);
 
-    useEffect(() => {
-        if (commerce) {
-            setUpvotes(commerce.upvotes);
-            setDownvotes(commerce.downvotes);
-        }
-    }, [commerce]);
 
-    // Use useEffect to call saveChanges when commerce is updated
     useEffect(() => { if (commerce) saveChanges(); }, [commerce]);
 
     return (
@@ -117,8 +110,14 @@ const CommercePage = () => {
                                 <p className="text-2xl"><span className="font-bold">Activity: </span>{commerce.activity}</p>
                                 <p className="text-2xl"><span className="font-bold">Score: </span>{score.toFixed(1)} / 5</p>
                             </div>
+                            <div className=" mt-2 grid grid-cols-1 w-full gap-2 border-l-2 border-l-gray-700 pl-4">
+                                {/* <h2 className="text-lg"><span className="font-bold">CIF: </span>{commerce.cif}</h2> */}
+                                <h2 className="text-lg"><span className="font-bold">Phone: </span>{commerce.phone}</h2>
+                                <h2 className="text-lg"><span className="font-bold">Email: </span>{commerce.email}</h2>
+                                <h2 className="text-lg"><span className="font-bold">City: </span>{commerce.city}</h2>
+                            </div>
                         </div>
-                        <div className="mt-20 grid xl:grid-cols-2 gap-10">
+                        <div className="mt-14 grid xl:grid-cols-2 gap-10">
                             <div className="border-t-2 border-b-2 border-black py-6">
                                 <h2 className="text-xl font-bold">About us:</h2>
                                 <div className="px-3 mt-7 w-full text-justify">
