@@ -26,6 +26,7 @@ const getItemByCIF = async (req, res) => {
         const data = await CommerceModel.findOne({ cif });
         if (!data)
             return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);
+
         res.send(data);
 
     } catch (err) {
@@ -33,14 +34,29 @@ const getItemByCIF = async (req, res) => {
     }
 }
 
+const getToken = async (req, res) => {
+    try {
+        req = matchedData(req);
+        const cif = req.cif;
+        const commerce = await CommerceModel.findOne({ cif });
+        if (!commerce)
+            return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);
+
+        const data = { token: await signCommerceToken(commerce) };
+        res.send(data);
+
+    } catch (error) {
+        handleHttpError(res, 'ERROR_CREATE_TOKEN');
+    }
+}
+
 const createItem = async (req, res) => {
     try {
         const body = matchedData(req);
-        const commerce = await CommerceModel.create(body);
-        if (!commerce)
+        const data = await CommerceModel.create(body);
+        if (!data)
             throw new Error('Couldn\'t create commerce.');
 
-        const data = { token: await signCommerceToken(commerce) };
         res.send(data);
 
     } catch (err) {
@@ -51,6 +67,9 @@ const createItem = async (req, res) => {
 const updateItem = async (req, res) => {
     try {
         const body = matchedData(req);
+
+        if (req.commerce._id != req.body._id)
+            return handleHttpError(res, 'ERROR_FORBIDEN', 403);
 
         const data = await CommerceModel.findOneAndUpdate({ _id: req.body._id }, body);
         if (!data)
@@ -76,4 +95,4 @@ const deleteItemByCIF = async (req, res) => {
     }
 }
 
-module.exports = { getItems, getItemByCIF, createItem, updateItem, deleteItemByCIF };
+module.exports = { getItems, getItemByCIF, getToken, createItem, updateItem, deleteItemByCIF };

@@ -8,9 +8,11 @@ import EditModal from '../components/EditModal';
 
 const jwt = require('jsonwebtoken');
 
-const UserHome = ({ params }) => {
-    const username = params.username;
+const UserHome = () => {
     const router = useRouter();
+
+    const [username, setUserName] = useState('');
+    const [interestsData, setInterestsData] = useState([]);
 
     const [cityFilter, setFilter] = useState('');
     const [activityFilter, setActivityFilter] = useState('');
@@ -104,9 +106,21 @@ const UserHome = ({ params }) => {
 
                 const data = await response.json();
                 setUser(data);
+                setUserName(data.username);
 
             } catch (error) {
                 console.error(error);
+            }
+        }
+
+        const fetchInterests = async () => {
+            try {
+                const response = await fetch('/api/interests');
+                const data = await response.json();
+                setInterestsData(data.interests);
+
+            } catch (error) {
+                console.error('Error fetching interests data:', error);
             }
         }
 
@@ -117,6 +131,7 @@ const UserHome = ({ params }) => {
         }
         const decodedToken = jwt.decode(token);
 
+        fetchInterests();
         fetchCommerces();
         fetchUserData(decodedToken._id, token);
         setLoading(false);
@@ -187,7 +202,9 @@ const UserHome = ({ params }) => {
                         onEdit={saveChanges}
                         onDelete={deleteUser}
                         setUser={setUser}
-                        user={user} />
+                        user={user}
+                        interestsData={interestsData}
+                    />
                 }
             </div >
             }

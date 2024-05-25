@@ -1,12 +1,25 @@
 
 import React, { useState } from 'react';
 
-const Commerce = ({ id, name, cif, city, email, phone, coverImg, isModalOpen, deleteCommerce }) => {
+const Commerce = ({ id, name, cif, city, email, phone, coverImg, isModalOpen, generateToken }) => {
+
     const [isDeleteHovered, setIsHovered] = useState(false);
 
+    const handleMouseEnter = () => {
+        if (!isModalOpen) setIsHovered(true);
+    };
+
+    const handleMouseLeave = () => {
+        setIsHovered(false);
+    };
+
+    const handleDeleteClick = () => {
+        if (!isModalOpen) generateToken(cif);
+    };
+
     return (
-        // <div className="h-auto rounded-lg inline-flex bg-red-600">
-        <div className="h-auto rounded-lg inline-flex bg-white shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
+        <div className="h-auto rounded-lg inline-flex bg-teal-500 shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
+            {/* <div className="h-auto rounded-lg inline-flex bg-white shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]"> */}
             {/* Image */}
             <div
                 className="w-4/5 bg-black bg-cover bg-center rounded-l-lg "
@@ -29,16 +42,21 @@ const Commerce = ({ id, name, cif, city, email, phone, coverImg, isModalOpen, de
             </div>
             <div
                 className={`${isDeleteHovered ? 'w-28' : 'w-5'} flex justify-center place-items-center transition-all duration-300`}
-            // onMouseEnter={() => { if (!isModalOpen) setIsHovered(true) }}
-            // onMouseLeave={() => setIsHovered(false)}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+                role="button"
+                aria-label="Delete commerce"
             >
                 {/* TODO when modal is open make cursor a pointer even while hovering */}
                 {/* <img
                     src="/trashcan.png"
                     className={`w-8 h-8 transition-opacity duration-300 ${isDeleteHovered ? 'opacity-100 hover:cursor-pointer' : 'opacity-0'}`}
-                    onClick={() => { if (!isModalOpen) deleteCommerce(cif) }}
+                    onClick={handleDeleteClick}
                 /> */}
-                {/* <button className={`w-5 h-5 bg-white rounded-full transition-opacity duration-300 ${isDeleteHovered ? 'opacity-100' : 'opacity-0'}`} onClick={() => { if (!isModalOpen) alert(123) }} /> */}
+                <button
+                    className={`w-8 h-8 bg-white rounded-full transition-opacity duration-300 ${isDeleteHovered ? 'opacity-100' : 'opacity-0'}`}
+                    onClick={handleDeleteClick}
+                />
             </div>
         </div>
     );

@@ -34,8 +34,8 @@ const EditModal = ({ onClose, onEdit, setCommerce, commerce }) => {
 
     return (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-80">
-            <div className="flex flex-col gap-6 w-1/2 bg-white p-8 rounded shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
-                <div className="flex flex-col gap-6">
+            <div className="flex flex-col gap-2 w-1/2 bg-white p-8 rounded shadow-[rgba(0,_0,_0,_0.3)_0px_0px_15px]">
+                <div className="flex flex-col gap-4">
                     <h2 className="text-2xl font-bold text-center">Edit Info</h2>
                     <div className="mt-7 flex flex-row items-center justify-between gap-5">
                         <p className="font-bold">Name: </p>

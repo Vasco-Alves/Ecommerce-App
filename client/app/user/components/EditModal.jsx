@@ -1,19 +1,18 @@
 
 'use client';
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 
-const EditModal = ({ closeModal, onEdit, onDelete, setUser, user }) => {
-
-    const [interestsData, setInterestsData] = useState([]);
+const EditModal = ({ closeModal, onEdit, onDelete, setUser, user, interestsData }) => {
 
     const handleChange = (e) => {
-        setUser({ ...user, [e.target.name]: e.target.value });
+        const { name, value } = e.target;
+        setUser({ ...user, [name]: value });
     }
 
     const handleCheckboxChange = (interest) => {
         const updatedInterests = user.interests.includes(interest)
-            ? user.interests.filter(item => item !== interest)
+            ? user.interests.filter(i => i !== interest)
             : [...user.interests, interest];
 
         setUser({ ...user, interests: updatedInterests });
@@ -32,21 +31,6 @@ const EditModal = ({ closeModal, onEdit, onDelete, setUser, user }) => {
         onDelete();
         closeModal();
     }
-
-    useEffect(() => {
-        const fetchInterests = async () => {
-            try {
-                const response = await fetch('/api/interests');
-                const data = await response.json();
-
-                setInterestsData(data.interests);
-            } catch (error) {
-                console.error('Error fetching interests data:', error);
-            }
-        }
-
-        fetchInterests();
-    }, []);
 
     return (
         <div className="fixed top-0 left-0 w-full h-full flex items-center justify-center bg-white bg-opacity-80">

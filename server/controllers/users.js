@@ -28,7 +28,9 @@ const getItems = async (req, res) => {
 
 const getItemById = async (req, res) => {
     try {
-        const id = req.params.id;
+        req = matchedData(req);
+        const id = req.id;
+
         const data = await UserModel.findById(id);
         if (!data)
             return handleHttpError(res, 'ERROR_ITEM_NOT_FOUND', 404);

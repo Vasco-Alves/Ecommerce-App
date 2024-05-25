@@ -52,6 +52,31 @@ router.get('/:cif', Validator.validateCif, Controller.getItemByCIF);
 
 /**
  * @openapi
+ * /api/comercio/{cif}:
+ *  get:
+ *      tags:
+ *      - Commerce
+ *      summary: Generates authentication token.
+ *      description: Sends authentication token so bussines can login.
+ *      parameters:
+ *      - in: path
+ *        name: cif
+ *        schema:
+ *          type: string
+ *        required: true
+ *        description: authentication token.
+ *      responses:
+ *          '200':
+ *              description: A single commerce item.
+ *          '404':
+ *              description: Commerce item not found.
+ *          '500':
+ *              description: Server error.
+ */
+router.get('/token/:cif', Validator.validateCif, Controller.getToken);
+
+/**
+ * @openapi
  * /api/comercio:
  *  post:
  *      tags:
@@ -70,7 +95,7 @@ router.get('/:cif', Validator.validateCif, Controller.getItemByCIF);
  *          '500':
  *              description: Server error.
  */
-router.post('/', Validator.validateCreate, Controller.createItem);
+router.post('/', Middleware.authUserToken, Validator.validateCreate, Controller.createItem);
 // Middleware.authUserToken, 
 
 /**

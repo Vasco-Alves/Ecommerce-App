@@ -55,10 +55,6 @@ const AdminPage = () => {
             if (!response.ok)
                 throw new Error('Error creating commerce.');
 
-
-            const data = await response.json();
-            console.log(data.token);
-
             fetchData();
 
         } catch (error) {
@@ -67,7 +63,30 @@ const AdminPage = () => {
     };
 
 
-    const deleteCommerce = async (cif) => {}
+    const generateToken = async (cif) => {
+        try {
+            const token = localStorage.getItem('token');
+            if (!token)
+                return;
+
+            const response = await fetch(`http://localhost:3000/api/comercio/token/${cif}`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok)
+                throw new Error('Error getting token.');
+
+            const data = await response.json();
+            console.log(data.token);
+
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     useEffect(() => { fetchData() }, []);
 
@@ -124,7 +143,7 @@ const AdminPage = () => {
                                 phone={c.phone}
                                 coverImg={c.cover}
                                 isModalOpen={isModalOpen}
-                                deleteCommerce={deleteCommerce}
+                                generateToken={generateToken}
                             />
                         ))}
                 </div>
